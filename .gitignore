@@ -9,3 +9,6 @@ build-out.css
 *.log
 .env
 .env.*
+
+# deploy key material - never commit
+.deploy/
