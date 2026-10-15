@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#09090b">
+<title>7 Minute Timer — Online Countdown &amp; 7-Minute Workout Interval Timer</title>
+<meta name="description" content="A free 7 minute timer: a simple 7:00 countdown, and the full 12-exercise 7-minute workout with voice cues and modifications.">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="7 Minute Timer — Countdown &amp; 7-Minute Workout Interval Timer">
+<meta property="og:description" content="Simple 7:00 countdown, or the full 12-exercise 7-minute workout with voice cues and modifications for every move.">
+<meta property="og:site_name" content="Online Timer">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://example.com/7-minute-timer/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "7 Minute Timer",
+      "url": "https://example.com/7-minute-timer/",
+      "description": "A free online 7 minute timer offering both a plain 7:00 countdown and the 12-exercise 7-minute workout with voice cues and per-exercise modifications.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any modern web browser",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to do the 7-minute workout",
+      "totalTime": "PT8M",
+      "step": [
+        { "@type": "HowToStep", "name": "Warm up", "text": "Spend two or three minutes on dynamic movement before starting. Static stretching before a high-intensity circuit reduces output." },
+        { "@type": "HowToStep", "name": "Run 12 exercises, 30 seconds each", "text": "Jumping jacks, wall sit, push-ups, abdominal crunch, step-ups onto a chair, squats, triceps dips on a chair, forearm plank, high knees, lunges, push-up and rotation, side plank." },
+        { "@type": "HowToStep", "name": "Take 10 seconds between exercises", "text": "The short gaps are transitions, not recovery. Keep moving so heart rate stays elevated." },
+        { "@type": "HowToStep", "name": "Rest between circuits", "text": "Take one to two minutes, then repeat. The original protocol asks for two to three circuits." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How long is the 7-minute workout really?", "acceptedAnswer": { "@type": "Answer", "text": "One circuit is 470 seconds, or 7 minutes 50 seconds: 12 exercises at 30 seconds each plus 11 transitions of 10 seconds. It is usually called a 7-minute workout because of rounding." } },
+        { "@type": "Question", "name": "Do I only need to do it once?", "acceptedAnswer": { "@type": "Answer", "text": "The original protocol recommends two to three circuits, so a full session is closer to 16 to 24 minutes. This timer lets you choose 1, 2 or 3 circuits and rest between them." } },
+        { "@type": "Question", "name": "What equipment do I need?", "acceptedAnswer": { "@type": "Answer", "text": "None, apart from a sturdy chair without wheels for step-ups and triceps dips, and a wall for wall sits. Every exercise on this page includes a lower-impact modification." } },
+        { "@type": "Question", "name": "Why is the order of the exercises important?", "acceptedAnswer": { "@type": "Answer", "text": "The sequence alternates muscle groups so you never hit the same group back to back, which is what lets 12 exercises feel manageable in under eight minutes." } },
+        { "@type": "Question", "name": "Can I use this as a plain 7 minute countdown?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Switch the timer to Simple mode for a straight 7:00 countdown with an alarm, or set any custom duration with the hour, minute and second fields." } }
+      ]
+    }
+  ]
+}
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ink: { 950: '#09090b', 900: '#0d0d11', 850: '#131318', 800: '#1a1a20', 700: '#26262f' }
+      },
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+      }
+    }
+  }
+};
+</script>
+<style>
+:root{--dial:clamp(210px,40vmin,400px);--pad:clamp(92px,14vh,160px);--ease:cubic-bezier(.22,1,.36,1);--accent-a:#22d3ee;--accent-b:#818cf8;--accent-c:#e879f9}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;background:#09090b;color:#e4e4e7;font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid #818cf8;outline-offset:3px;border-radius:12px}
+.bg-field{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:radial-gradient(130% 95% at 50% 0%,#121219 0%,#09090b 58%,#050506 100%)}
+.bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:68px 68px;opacity:.55;-webkit-mask-image:radial-gradient(72% 62% at 50% 45%,#000 0%,transparent 100%);mask-image:radial-gradient(72% 62% at 50% 45%,#000 0%,transparent 100%)}
+.blob{position:absolute;border-radius:50%;filter:blur(88px);opacity:.2;transform:translateZ(0);will-change:transform,opacity}
+.blob-a{width:56vmax;height:56vmax;left:-20vmax;top:-22vmax;background:radial-gradient(circle at 35% 35%,#4f46e5 0%,rgba(79,70,229,0) 70%)}
+.blob-b{width:50vmax;height:50vmax;right:-18vmax;top:4vmax;background:radial-gradient(circle at 60% 40%,#0891b2 0%,rgba(8,145,178,0) 70%)}
+.blob-c{width:54vmax;height:54vmax;left:24vmax;bottom:-28vmax;background:radial-gradient(circle at 50% 50%,#7c3aed 0%,rgba(124,58,237,0) 70%)}
+body.running .blob-a{animation:glowA 8.5s var(--ease) infinite}
+body.running .blob-b{animation:glowB 11s var(--ease) infinite}
+body.running .blob-c{animation:glowC 9.5s var(--ease) infinite}
+@keyframes glowA{0%,100%{transform:scale(1) translate3d(0,0,0);opacity:.18}50%{transform:scale(1.18) translate3d(3%,4%,0);opacity:.4}}
+@keyframes glowB{0%,100%{transform:scale(1.04) translate3d(0,0,0);opacity:.16}50%{transform:scale(.9) translate3d(-4%,6%,0);opacity:.32}}
+@keyframes glowC{0%,100%{transform:scale(.96) translate3d(0,0,0);opacity:.18}50%{transform:scale(1.22) translate3d(-3%,-5%,0);opacity:.38}}
+.stage{position:fixed;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;overflow-y:auto;overscroll-behavior:contain;padding:clamp(14px,2.4vw,26px);padding-top:max(clamp(14px,2.4vw,26px),env(safe-area-inset-top));padding-bottom:max(clamp(14px,2.4vw,26px),env(safe-area-inset-bottom))}
+.zone-top,.zone-bot{position:relative;z-index:3;flex:none}
+.zone-mid{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,2.6vh,26px);padding:var(--pad) 18px;transition:padding .8s var(--ease)}
+body.zen .zone-mid{padding-top:0;padding-bottom:0}
+.zen-hide{transition:opacity .4s ease,transform .55s var(--ease),filter .4s ease,visibility 0s linear 0s}
+body.zen .zen-hide{opacity:0;transform:translate3d(0,14px,0) scale(.985);filter:blur(7px);visibility:hidden;pointer-events:none;transition:opacity .34s ease,transform .5s var(--ease),filter .34s ease,visibility 0s linear .5s}
+.dial{position:relative;width:var(--dial);height:var(--dial);flex:none;transition:transform .8s var(--ease);will-change:transform}
+body.zen .dial{transform:scale(1.1)}
+.ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.ring-track{fill:none;stroke:rgba(255,255,255,.055);stroke-width:8}
+.ring-progress{fill:none;stroke:url(#ringGradient);stroke-width:8;stroke-linecap:round;filter:url(#ringGlow)}
+body.is-rest .ring-progress{stroke:url(#restGradient)}
+.dial-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 13%;gap:.1rem}
+.status-pill{display:inline-flex;align-items:center;gap:.5rem;font-size:.66rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#a1a1aa}
+.status-dot{width:6px;height:6px;border-radius:999px;background:#52525b;transition:background .35s ease,box-shadow .35s ease}
+body.running .status-dot{background:var(--accent-b);box-shadow:0 0 0 4px rgba(129,140,248,.16);animation:blink 1.8s ease-in-out infinite}
+body.is-rest.running .status-dot{background:#34d399;box-shadow:0 0 0 4px rgba(52,211,153,.16)}
+body.complete .status-dot{background:#34d399;box-shadow:0 0 0 4px rgba(52,211,153,.16)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.move-name{margin:.15rem 0 .1rem;font-size:clamp(.95rem,2.4vmin,1.15rem);font-weight:600;letter-spacing:-.015em;color:#e4e4e7;line-height:1.2;max-width:100%;min-height:1.2em}
+.move-next{margin:0;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#52525b}
+.clock{margin:.2rem 0;font-family:'JetBrains Mono',ui-monospace,monospace;font-weight:500;font-size:clamp(2.6rem,10.5vmin,5.6rem);line-height:1;letter-spacing:-.05em;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#ffffff 0%,#d3d3dd 52%,#8a8a99 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 28px rgba(120,112,255,.16));transition:filter .6s ease}
+body.running .clock{filter:drop-shadow(0 8px 42px rgba(129,140,248,.42))}
+.clock .sep{opacity:.35}
+.clock-sub{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:#52525b;font-variant-numeric:tabular-nums}
+.dots{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:min(90vw,420px)}
+.dot{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.1);transition:background .3s ease,transform .3s var(--ease),box-shadow .3s ease}
+.dot.done{background:rgba(129,140,248,.45)}
+.dot.now{background:var(--accent-b);transform:scale(1.5);box-shadow:0 0 12px rgba(129,140,248,.7)}
+.mode-switch{display:inline-flex;padding:4px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)}
+.mode-switch button{padding:.5rem 1.1rem;border-radius:999px;font-size:.8rem;font-weight:600;color:#71717a;transition:color .22s ease,background .22s ease}
+.mode-switch button[aria-pressed="true"]{color:#fff;background:linear-gradient(180deg,rgba(99,102,241,.9),rgba(124,58,237,.85))}
+.chip{padding:.5rem .95rem;border-radius:999px;font-size:.8rem;font-weight:500;color:#a1a1aa;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);transition:color .22s ease,background .22s ease,border-color .22s ease,transform .22s var(--ease),box-shadow .22s ease}
+.chip:hover{color:#f4f4f5;background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);transform:translateY(-2px)}
+.chip[aria-pressed="true"]{color:#fff;background:linear-gradient(180deg,rgba(99,102,241,.9),rgba(124,58,237,.85));border-color:rgba(165,180,252,.5);box-shadow:0 10px 26px -12px rgba(99,102,241,.95)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;border-radius:999px;font-weight:600;border:1px solid transparent;transition:transform .18s var(--ease),background .22s ease,border-color .22s ease,box-shadow .22s ease,color .22s ease}
+.btn:active{transform:scale(.96)}
+.btn-primary{min-width:168px;padding:.95rem 2rem;color:#fff;background:linear-gradient(180deg,#6366f1 0%,#7c3aed 100%);box-shadow:0 16px 40px -16px rgba(99,102,241,.95),inset 0 1px 0 rgba(255,255,255,.22)}
+.btn-primary:hover{box-shadow:0 20px 48px -14px rgba(124,58,237,1),inset 0 1px 0 rgba(255,255,255,.28)}
+.btn-ghost{padding:.95rem 1.35rem;color:#a1a1aa;border-color:rgba(255,255,255,.09);background:rgba(255,255,255,.03)}
+.btn-ghost:hover{color:#f4f4f5;border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
+.panel{border-radius:26px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 30px 80px -40px rgba(0,0,0,.9)}
+.field-label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#71717a;margin-bottom:.55rem}
+.num-input{width:100%;padding:.7rem .5rem;text-align:center;border-radius:14px;background:rgba(9,9,11,.75);border:1px solid rgba(255,255,255,.08);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:1.1rem;font-variant-numeric:tabular-nums;color:#f4f4f5;transition:border-color .2s ease,box-shadow .2s ease;-moz-appearance:textfield}
+.num-input::-webkit-outer-spin-button,.num-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.num-input:focus{outline:none;border-color:rgba(129,140,248,.7);box-shadow:0 0 0 4px rgba(99,102,241,.14);background:rgba(9,9,11,.95)}
+.num-input:disabled{opacity:.4;cursor:not-allowed}
+select.sel{width:100%;appearance:none;-webkit-appearance:none;padding:.72rem 2.4rem .72rem .9rem;border-radius:14px;background-color:rgba(9,9,11,.75);background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .85rem center;border:1px solid rgba(255,255,255,.08);font-size:.88rem;color:#e4e4e7;cursor:pointer;transition:border-color .2s ease,box-shadow .2s ease}
+select.sel:focus{outline:none;border-color:rgba(129,140,248,.7);box-shadow:0 0 0 4px rgba(99,102,241,.14)}
+input[type="range"].rng{width:100%;height:4px;appearance:none;-webkit-appearance:none;background:linear-gradient(90deg,#6366f1 0%,#7c3aed var(--pct,60%),rgba(255,255,255,.1) var(--pct,60%));border-radius:999px;cursor:pointer}
+input[type="range"].rng::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:999px;background:#fff;border:3px solid #6366f1;box-shadow:0 2px 10px rgba(0,0,0,.6)}
+input[type="range"].rng::-moz-range-thumb{width:16px;height:16px;border-radius:999px;background:#fff;border:3px solid #6366f1}
+.switch-row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.55rem 0}
+.switch{position:relative;width:42px;height:24px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.08);cursor:pointer;transition:background .22s ease,border-color .22s ease;flex:none}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:999px;background:#a1a1aa;transition:transform .22s var(--ease),background .22s ease}
+.switch[aria-checked="true"]{background:linear-gradient(90deg,#6366f1,#7c3aed);border-color:rgba(165,180,252,.5)}
+.switch[aria-checked="true"]::after{transform:translateX(18px);background:#fff}
+.switch-label{font-size:.86rem;color:#d4d4d8}
+.switch-note{font-size:.68rem;color:#52525b;margin-top:.1rem;line-height:1.45}
+.ex-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.ex{display:flex;gap:.9rem;padding:1rem 1.1rem;border-radius:18px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.022);transition:border-color .3s ease,background .3s ease,transform .3s var(--ease)}
+.ex.is-now{border-color:rgba(129,140,248,.55);background:rgba(99,102,241,.1);transform:translateX(3px)}
+.ex.is-done{opacity:.45}
+.ex-n{flex:none;width:28px;height:28px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.78rem;font-weight:500;color:#a1a1aa;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+.ex.is-now .ex-n{color:#fff;background:linear-gradient(180deg,#6366f1,#7c3aed);border-color:transparent}
+.ex h3{margin:0 0 .3rem;font-size:.98rem;font-weight:600;color:#f4f4f5;letter-spacing:-.01em}
+.ex p{margin:0;font-size:.84rem;line-height:1.6;color:#8b8b93}
+.ex-mod{margin-top:.45rem!important;font-size:.76rem!important;color:#71717a!important;padding-left:.65rem;border-left:2px solid rgba(245,158,11,.35)}
+.prose{color:#a1a1aa;font-size:1.02rem;line-height:1.75}
+.prose h2{font-size:clamp(1.12rem,2.8vw,1.35rem);line-height:1.3;letter-spacing:-.02em;font-weight:600;color:#f4f4f5;margin:2.6rem 0 .8rem}
+.prose h3{font-size:1rem;font-weight:600;color:#e4e4e7;margin:1.9rem 0 .6rem}
+.prose p{margin:0 0 1.05rem}
+.prose ul{margin:0 0 1.05rem;padding-left:1.15rem}
+.prose li{margin-bottom:.5rem}
+.prose strong{color:#e4e4e7;font-weight:600}
+.ad-slot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;min-height:100px;border:1px dashed rgba(255,255,255,.12);border-radius:20px;background:repeating-linear-gradient(135deg,rgba(255,255,255,.016) 0 10px,rgba(255,255,255,.006) 10px 20px);text-align:center}
+.ad-slot.is-live{border:none;background:transparent}
+.ad-slot.is-live .ad-title,.ad-slot.is-live .ad-meta{display:none}
+.ad-slot.is-live .ad-frame{display:block}
+.ad-frame{display:none;width:100%}
+.ad-title{font-size:.58rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#52525b}
+.ad-meta{font-size:.58rem;letter-spacing:.14em;color:#3f3f46;text-transform:uppercase}
+.rail{position:fixed;top:0;bottom:0;z-index:1;width:clamp(0px,11vw,200px);display:none;align-items:center;justify-content:center;padding:28px 0}
+.rail-left{left:0}.rail-right{right:0}
+@media(min-width:1400px){.rail{display:flex}}
+.rail .ad-slot{width:100%;height:600px;border-radius:24px}
+.consent{position:fixed;left:50%;bottom:18px;z-index:40;transform:translate(-50%,140%);width:min(680px,calc(100vw - 24px));padding:1.1rem 1.25rem;border-radius:22px;border:1px solid rgba(255,255,255,.1);background:rgba(13,13,17,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 30px 90px -30px rgba(0,0,0,1);transition:transform .6s var(--ease),opacity .4s ease;opacity:0}
+.consent.show{transform:translate(-50%,0);opacity:1}
+body.zen .consent{opacity:0;pointer-events:none}
+.zen-hint{position:fixed;left:50%;bottom:max(20px,env(safe-area-inset-bottom));z-index:5;transform:translateX(-50%);padding:.5rem 1rem;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(9,9,11,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:.72rem;letter-spacing:.08em;color:#71717a;white-space:nowrap;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .5s ease,visibility 0s linear .5s}
+body.zen .zen-hint{opacity:1;visibility:visible;transition:opacity .5s ease .3s,visibility 0s linear .3s}
+.zen-hint.gone{opacity:0!important;visibility:hidden}
+.burst{position:fixed;left:50%;top:50%;width:220px;height:220px;margin:-110px 0 0 -110px;border-radius:999px;border:2px solid rgba(52,211,153,.6);opacity:0;pointer-events:none;z-index:4}
+.burst.go{animation:burst 1.1s var(--ease) forwards}
+@keyframes burst{0%{transform:scale(.4);opacity:.85}100%{transform:scale(3.4);opacity:0}}
+.muted .icon-waves{display:none}.muted .icon-off{display:block}.icon-off{display:none}
+@media(max-height:720px){:root{--dial:clamp(190px,34vmin,300px);--pad:84px}}
+@media(max-width:560px){:root{--dial:clamp(196px,62vw,280px);--pad:104px}.btn-primary{min-width:140px;padding:.9rem 1.5rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}body.running .blob{opacity:.26}}
+</style>
+</head>
+<body>
+<div class="bg-field" aria-hidden="true">
+  <div class="bg-grid"></div>
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="blob blob-c"></div>
+</div>
+
+<aside class="rail rail-left zen-hide" aria-label="Advertisement"><div class="ad-slot" data-ad-slot="rail-left" data-min-h="600"><span class="ad-title">Advertisement</span><span class="ad-meta">300 &times; 600</span></div></aside>
+<aside class="rail rail-right zen-hide" aria-label="Advertisement"><div class="ad-slot" data-ad-slot="rail-right" data-min-h="600"><span class="ad-title">Advertisement</span><span class="ad-meta">300 &times; 600</span></div></aside>
+
+<div class="stage" id="stage">
+  <header class="zone-top zen-hide flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <span class="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent-b)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2"></path><path d="M9 2h6"></path></svg>
+      </span>
+      <div class="leading-tight">
+        <p class="text-sm font-semibold tracking-tight text-zinc-100">7 Minute Timer</p>
+        <p class="text-[.7rem] text-zinc-500">Countdown &middot; 12-exercise circuit</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="mode-switch" role="group" aria-label="Timer mode">
+        <button type="button" id="modeSimple" aria-pressed="true">7:00</button>
+        <button type="button" id="modeWorkout" aria-pressed="false">Workout</button>
+      </div>
+      <button id="btnZen" type="button" aria-pressed="false" class="btn btn-ghost text-sm">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M8 21H5a2 2 0 0 1-2-2v-3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
+        <span id="zenLabel">Distraction&#8209;free</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="zone-mid" id="zoneMid">
+    <div class="dial">
+      <svg class="ring" viewBox="0 0 320 320" aria-hidden="true">
+        <defs>
+          <linearGradient id="ringGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#22d3ee"></stop><stop offset="48%" stop-color="#818cf8"></stop><stop offset="100%" stop-color="#e879f9"></stop></linearGradient>
+          <linearGradient id="restGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#34d399"></stop><stop offset="100%" stop-color="#22d3ee"></stop></linearGradient>
+          <filter id="ringGlow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6" result="blur"></feGaussianBlur><feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>
+        </defs>
+        <circle class="ring-track" cx="160" cy="160" r="146"></circle>
+        <circle class="ring-progress" id="ring" cx="160" cy="160" r="146"></circle>
+      </svg>
+      <div class="dial-center">
+        <span class="status-pill"><span class="status-dot"></span><span id="stateLabel">Ready</span></span>
+        <p class="move-name" id="moveName"></p>
+        <div class="clock" id="clock" role="timer" aria-live="off">07:00</div>
+        <p class="move-next" id="moveNext"></p>
+        <div class="clock-sub" id="clockSub">7 minute timer</div>
+      </div>
+    </div>
+
+    <div class="dots" id="dots" hidden aria-label="Circuit progress"></div>
+
+    <div class="flex flex-col items-center gap-5">
+      <div class="flex flex-wrap items-center justify-center gap-2" id="presets" role="group" aria-label="Presets"></div>
+      <div class="flex items-center justify-center gap-3">
+        <button id="btnStart" type="button" class="btn btn-primary" aria-label="Start timer">Start</button>
+        <button id="btnReset" type="button" class="btn btn-ghost" aria-label="Reset timer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path d="M3 3v5h5"></path></svg>
+          Reset
+        </button>
+      </div>
+      <p class="text-[.7rem] text-zinc-600 hidden sm:block">Space start / pause &nbsp;&middot;&nbsp; R reset &nbsp;&middot;&nbsp; D focus mode</p>
+    </div>
+  </main>
+
+  <section class="zone-bot zen-hide flex flex-col gap-4">
+    <div class="panel p-5 sm:p-6">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <span class="field-label" id="customLabel">Custom duration</span>
+          <div class="grid grid-cols-3 gap-2" id="customWrap">
+            <div><input id="inHours" class="num-input" type="number" inputmode="numeric" min="0" max="99" value="0" aria-label="Hours"><span class="mt-1.5 block text-center text-[.6rem] uppercase tracking-[.18em] text-zinc-600">Hours</span></div>
+            <div><input id="inMinutes" class="num-input" type="number" inputmode="numeric" min="0" max="59" value="7" aria-label="Minutes"><span class="mt-1.5 block text-center text-[.6rem] uppercase tracking-[.18em] text-zinc-600">Minutes</span></div>
+            <div><input id="inSeconds" class="num-input" type="number" inputmode="numeric" min="0" max="59" value="0" aria-label="Seconds"><span class="mt-1.5 block text-center text-[.6rem] uppercase tracking-[.18em] text-zinc-600">Seconds</span></div>
+          </div>
+          <div id="roundsWrap" hidden>
+            <span class="field-label">Circuits</span>
+            <div class="flex gap-2" id="rounds" role="group" aria-label="Number of circuits">
+              <button type="button" class="chip" data-rounds="1" aria-pressed="false">1</button>
+              <button type="button" class="chip" data-rounds="2" aria-pressed="true">2</button>
+              <button type="button" class="chip" data-rounds="3" aria-pressed="false">3</button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label" for="selSound">Background sound</label>
+          <select id="selSound" class="sel">
+            <option value="none">Off</option>
+            <option value="pink" selected>Pink noise</option>
+            <option value="brown">Brown noise</option>
+            <option value="rain">Soft rain</option>
+            <option value="ocean">Ocean waves</option>
+          </select>
+          <p class="mt-2 text-[.68rem] leading-relaxed text-zinc-600">Synthesized in your browser while the clock runs.</p>
+        </div>
+
+        <div>
+          <label class="field-label" for="selAlert">Ending alert</label>
+          <select id="selAlert" class="sel">
+            <option value="chime" selected>Gentle chime cascade</option>
+            <option value="synth">Retro synth wave</option>
+            <option value="beep">Modern alert beep</option>
+            <option value="bell">Crystal bell</option>
+          </select>
+          <div class="mt-3 flex items-center gap-3">
+            <button id="btnTest" type="button" class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[.72rem] font-medium text-zinc-400 transition hover:border-white/20 hover:text-zinc-100">Preview</button>
+            <button id="btnMute" type="button" class="btn btn-ghost !px-3 !py-1.5 text-[.72rem]" aria-pressed="false" aria-label="Mute audio">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"></path><g class="icon-waves"><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></g><g class="icon-off"><path d="M17 9l4 6"></path><path d="M21 9l-4 6"></path></g></svg>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label" for="rngVolume">Volume</label>
+          <div class="flex items-center gap-3 pt-1">
+            <input id="rngVolume" class="rng" type="range" min="0" max="100" value="60" aria-label="Volume">
+            <span id="volLabel" class="w-9 shrink-0 text-right font-mono text-xs text-zinc-500">60</span>
+          </div>
+          <div class="mt-3">
+            <div class="switch-row">
+              <div>
+                <p class="switch-label">Voice cues</p>
+                <p class="switch-note" id="voiceNote">Announces each move so you can keep your eyes off the screen.</p>
+              </div>
+              <button type="button" class="switch" id="swVoice" role="switch" aria-checked="true" aria-label="Voice cues"></button>
+            </div>
+            <div class="switch-row">
+              <div>
+                <p class="switch-label">3-second warning</p>
+                <p class="switch-note">Three beeps before every changeover.</p>
+              </div>
+              <button type="button" class="switch" id="swWarn" role="switch" aria-checked="true" aria-label="Three second warning"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot" data-ad-slot="footer" data-min-h="100" style="min-height:100px">
+      <span class="ad-title">Advertisement</span>
+      <span class="ad-meta">728 &times; 90 responsive</span>
+    </div>
+
+    <footer class="flex flex-wrap items-center justify-between gap-3 px-1 pb-1 text-[.72rem] text-zinc-500">
+      <span>Circuits completed today: <span id="trackerCount" class="font-semibold text-zinc-200">0</span></span>
+      <span id="trackerMeta" class="text-zinc-600">No circuits logged in this tab yet.</span>
+    </footer>
+  </section>
+</div>
+
+<main class="relative z-[2] mx-auto w-full max-w-3xl px-5 pb-24 pt-10 sm:px-8">
+  <div class="prose">
+    <h1 class="!mb-4 !text-[clamp(1.5rem,4.4vw,2.1rem)] !font-bold !leading-[1.2] !tracking-[-.025em] !text-zinc-50">The 7-minute workout: 12 exercises in 7 minutes 50 seconds</h1>
+    <p>The circuit below is the one people mean when they say "7-minute workout": twelve bodyweight exercises at 30 seconds each, separated by 10-second transitions. Set the timer to Workout mode and it runs the whole thing for you, calling out each move so you can keep your eyes off the screen.</p>
+    <h2>The 12 exercises, in the order that matters</h2>
+    <p>The sequence alternates muscle groups on purpose. You never hit the same group twice in a row, which is what lets twelve exercises survive inside eight minutes. The engine above reads this list directly, so the timer and the instructions can never drift apart.</p>
+  </div>
+
+  <ol class="ex-list mt-5" id="exList">
+    <li class="ex" data-name="Jumping jacks">
+      <span class="ex-n">1</span>
+      <div><h3>Jumping jacks</h3><p>Start with feet together, arms at your sides. Jump them apart and overhead at the same time. Get as many in as you can with clean form rather than fast, sloppy ones.</p><p class="ex-mod">Easier: step one foot out at a time and bring the arms up without jumping.</p></div>
+    </li>
+    <li class="ex" data-name="Wall sit">
+      <span class="ex-n">2</span>
+      <div><h3>Wall sit</h3><p>Back flat to a wall, feet hip-width and slightly forward. Slide down until knees are bent to roughly 90 degrees. Hold, and keep your weight in your heels.</p><p class="ex-mod">Easier: hold a shallower angle, or lean against a chair back with the slide reduced.</p></div>
+    </li>
+    <li class="ex" data-name="Push-ups">
+      <span class="ex-n">3</span>
+      <div><h3>Push-ups</h3><p>Plank position, hands under shoulders, body in one line. Lower until your chest is near the floor, then press back up. Hips stay level throughout.</p><p class="ex-mod">Easier: drop to your knees, or push against a countertop at an incline.</p></div>
+    </li>
+    <li class="ex" data-name="Abdominal crunches">
+      <span class="ex-n">4</span>
+      <div><h3>Abdominal crunches</h3><p>Lie on your back, knees bent, feet flat. Press your lower back into the floor and curl your shoulders toward your knees. Lower under control, do not drop.</p><p class="ex-mod">Easier: keep knees higher and use a smaller range of motion, or crunch one arm at a time.</p></div>
+    </li>
+    <li class="ex" data-name="Step-ups">
+      <span class="ex-n">5</span>
+      <div><h3>Step-ups onto a chair</h3><p>Face a sturdy chair or bench. Step up fully onto it, stand, step down, then repeat with the other leg. Use a chair with no wheels and keep it braced against a wall.</p><p class="ex-mod">Easier: use a low step instead, or skip the step entirely and alternate heel lifts.</p></div>
+    </li>
+    <li class="ex" data-name="Squats">
+      <span class="ex-n">6</span>
+      <div><h3>Squats</h3><p>Feet shoulder-width, hips hinge back as if reaching for a chair. Keep weight in your heels and your chest up. Stand fully at the top.</p><p class="ex-mod">Easier: hands on hips, sit back only halfway, or squat to a chair and tap it lightly.</p></div>
+    </li>
+    <li class="ex" data-name="Triceps dips">
+      <span class="ex-n">7</span>
+      <div><h3>Triceps dips on a chair</h3><p>Sit on the front edge of a sturdy chair, hands on the edge beside you. Slide your hips off, bend elbows straight back, lower, and press up.</p><p class="ex-mod">Easier: keep the knees bent and shorten the dip, or use a low bench with a small range.</p></div>
+    </li>
+    <li class="ex" data-name="Plank">
+      <span class="ex-n">8</span>
+      <div><h3>Forearm plank</h3><p>On your forearms with elbows under shoulders, body in one straight line from head to heels. Squeeze your glutes and brace your core. Do not let the hips sag or pike up.</p><p class="ex-mod">Easier: forearms on a sturdy surface such as a bed frame or low bench, or drop to your knees.</p></div>
+    </li>
+    <li class="ex" data-name="High knees">
+      <span class="ex-n">9</span>
+      <div><h3>High knees, running in place</h3><p>Run on the spot, driving each knee up to hip height. Swing your arms as though you were running down a road rather than in place.</p><p class="ex-mod">Easier: march instead of run, keeping the same upright posture and arm drive.</p></div>
+    </li>
+    <li class="ex" data-name="Lunges">
+      <span class="ex-n">10</span>
+      <div><h3>Lunges</h3><p>Step forward with one foot, dropping the back knee toward the floor. Both knees near 90 degrees, front knee above the ankle. Push back to standing and switch legs.</p><p class="ex-mod">Easier: hold a wall for balance, or do reverse lunges for a kinder version on the knees.</p></div>
+    </li>
+    <li class="ex" data-name="Push-up and rotation">
+      <span class="ex-n">11</span>
+      <div><h3>Push-up and rotation</h3><p>From a push-up position, press up and rotate your torso, extending one arm straight toward the ceiling. Return, switch sides, and repeat on the other arm.</p><p class="ex-mod">Easier: do wide push-ups from the knees and skip the rotation, or rotate from a high plank position.</p></div>
+    </li>
+    <li class="ex" data-name="Side plank">
+      <span class="ex-n">12</span>
+      <div><h3>Side plank</h3><p>On one forearm, legs stacked and body straight. Lift the hips until you form a line from head to feet. Fifteen seconds a side, then switch.</p><p class="ex-mod">Easier: drop the lower knee to the floor for support, or lift only to hip height rather than full extension.</p></div>
+    </li>
+  </ol>
+
+  <div class="prose mt-10">
+    <h2>How to use it properly</h2>
+    <p><strong>Warm up first.</strong> Two or three minutes of dynamic movement — marching, arm circles, leg swings — before the first jumping jack. Static stretching immediately before a high-intensity circuit actively reduces output.</p>
+    <h3>Work at maximum for 30 seconds</h3>
+    <p>Within each 30-second window, the goal is as many good repetitions as you can manage, not a target pace. The short gaps are transitions, not recovery: you are still moving between exercises, and your heart rate is meant to stay elevated right through.</p>
+    <h3>How long one circuit actually is</h3>
+    <p>Twelve exercises at 30 seconds is 6 minutes of work. Add the eleven 10-second transitions and you get <strong>470 seconds — 7 minutes 50 seconds</strong>. It is called a 7-minute workout because of rounding, not because it is precisely seven. Knowing the real figure matters if you are timing circuits against something else.</p>
+    <h3>Do more than one circuit</h3>
+    <p>The original protocol asks for two to three circuits, so a full session is closer to 16 to 24 minutes than seven. The picker at the top of this page sets one, two or three circuits with a rest between them, which is the single biggest difference between the real routine and most web timers.</p>
+    <h2>Does it actually work?</h2>
+    <p>The research is broadly positive with real caveats. The protocol has been replicated across a number of trials and the broad finding is that high-intensity circuit work produces meaningful cardiovascular benefits in a very short time. The caveats: <strong>it is not equivalent to a 30-minute session</strong>, the intensity is hard to sustain, and people consistently underestimate how much they underperform in the final exercises of circuit three.</p>
+    <p>It works well as a floor rather than a ceiling. Consistency across months matters far more than any single session, and seven minutes is a small enough ask that you will actually do it on a bad day — which is precisely when a hard workout is most useful and most likely to be skipped.</p>
+    <p>Check with a doctor before starting a new exercise routine, particularly if you have joint, cardiovascular or back issues. The modifications on every exercise above exist because not every movement suits every body, and dropping the range of motion is better than dropping the session.</p>
+
+    <h2>Common questions</h2>
+    <h3>How long is the 7-minute workout really?</h3>
+    <p>One circuit is 470 seconds, or 7 minutes 50 seconds: 12 exercises at 30 seconds each plus 11 transitions of 10 seconds.</p>
+    <h3>Do I only need to do it once?</h3>
+    <p>The protocol recommends two to three circuits, so a full session is closer to 16 to 24 minutes. This timer offers 1, 2 or 3 circuits with a rest between them.</p>
+    <h3>What equipment do I need?</h3>
+    <p>A sturdy chair without wheels for step-ups and triceps dips, and a wall for wall sits. Nothing else. Every exercise has a lower-impact modification.</p>
+    <h3>Why does the order matter?</h3>
+    <p>The sequence alternates muscle groups so you never repeat a group back to back. That alternation is what makes 12 exercises tolerable in under eight minutes.</p>
+    <h3>Can I use this as a plain 7 minute countdown?</h3>
+    <p>Yes. Switch to the 7:00 mode at the top for a straight countdown with an alarm, or set any custom duration with the hour, minute and second fields.</p>
+  </div>
+
+  <div class="ad-slot mt-10" data-ad-slot="in-article" data-min-h="100" style="min-height:100px">
+    <span class="ad-title">Advertisement</span>
+    <span class="ad-meta">728 &times; 90 in-article</span>
+  </div>
+
+  <footer class="mt-12 border-t border-white/5 pt-5 text-[.76rem] leading-relaxed text-zinc-600">
+    <p>Also from <a href="/index.html" class="text-zinc-400 underline underline-offset-2">Online Timer</a>: a <a href="/index.html#25m" class="text-zinc-400 underline underline-offset-2">25 minute pomodoro</a>, a <a href="/index.html#45m" class="text-zinc-400 underline underline-offset-2">45 minute deep work block</a>, and a <a href="/pomodoro-technique/" class="text-zinc-400 underline underline-offset-2">guide to the pomodoro technique</a>.</p>
+  </footer>
+</main>
+
+<div class="burst" id="burst" aria-hidden="true"></div>
+<p class="zen-hint" id="zenHint">Press <span class="font-mono text-zinc-400">D</span> or <span class="font-mono text-zinc-400">Esc</span> to exit focus mode</p>
+<div class="sr-only" id="live" aria-live="polite" role="status"></div>
+
+<div class="consent" id="consent" role="dialog" aria-live="polite" aria-label="Cookie preferences">
+  <p class="text-[.8rem] leading-relaxed text-zinc-300">We use cookies and advertising partners to keep this timer free. You can decline and keep using the tool.</p>
+  <div class="mt-3.5 flex flex-wrap items-center gap-2">
+    <button id="btnConsentAccept" type="button" class="btn !bg-gradient-to-b !from-amber-200 !to-amber-500 !px-4 !py-2 !text-[.75rem] !text-amber-950">Accept</button>
+    <button id="btnConsentDecline" type="button" class="btn btn-ghost !px-4 !py-2 text-[.75rem]">Decline</button>
+    <a href="/privacy.html" class="ml-auto text-[.7rem] text-zinc-500 underline underline-offset-2 transition hover:text-zinc-300">Privacy policy</a>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+var CIRC=2*Math.PI*146;
+var WORK=30, REST=10, ROUND_REST=60;
+var CIRCUIT = WORK*12 + REST*11;
+var MAX_SECONDS=99*3600+59*60+59;
+var PRESETS=[
+  {label:'1 Min',seconds:60},{label:'3 Min',seconds:180},{label:'5 Min',seconds:300},
+  {label:'7 Min',seconds:420},{label:'10 Min',seconds:600},{label:'15 Min',seconds:900},
+  {label:'25 Min',seconds:1500},{label:'45 Min',seconds:2700}
+];
+
+function $(s,r){return (r||document).querySelector(s);}
+function clamp(v,lo,hi){return Math.min(hi,Math.max(lo,v));}
+function pad2(n){return n<10?'0'+n:String(n);}
+
+var STORE={
+  get:function(k,f){try{var r=localStorage.getItem(k);return r?JSON.parse(r):f;}catch(e){return f;}},
+  set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+};
+
+var MONETIZE={
+  enabled:false,
+  client:'ca-pub-0000000000000000',
+  slots:{'rail-left':'0000000000','rail-right':'1111111111','footer':'2222222222','in-article':'3333333333'},
+  refreshSeconds:0,
+  lazyViewportMargin:'320px'
+};
+
+var Consent={
+  key:'ot.consent.v1',state:'unknown',
+  load:function(){var s=STORE.get(this.key,null);if(s&&s.choice&&Date.now()-s.ts<180*864e5){this.state=s.choice;}return this.state;},
+  grant:function(c){this.state=c;STORE.set(this.key,{choice:c,ts:Date.now()});}
+};
+
+var AdEngine={
+  loaded:false,observer:null,premium:false,consent:false,blocked:false,
+  active:function(){return MONETIZE.enabled&&!this.premium&&this.consent===true&&MONETIZE.client.indexOf('ca-pub-')===0;},
+  load:function(){
+    if(this.loaded||!MONETIZE.enabled||!MONETIZE.client)return;this.loaded=true;
+    var s=document.createElement('script');s.async=true;s.crossOrigin='anonymous';
+    s.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client='+MONETIZE.client;
+    s.onerror=function(){AdEngine.loaded=false;};document.head.appendChild(s);
+  },
+  fill:function(el){
+    if(!this.active()||el.getAttribute('data-filled')==='true')return;
+    var unit=MONETIZE.slots[el.getAttribute('data-ad-slot')];if(!unit)return;
+    var rail=el.getAttribute('data-ad-slot').indexOf('rail')===0;
+    var minH=parseInt(el.getAttribute('data-min-h'),10)||100;
+    var ins=document.createElement('ins');
+    ins.className='adsbygoogle ad-frame';ins.style.display='block';
+    ins.style.width=rail?'160px':'100%';ins.style.minHeight=minH+'px';
+    ins.setAttribute('data-ad-client',MONETIZE.client);
+    ins.setAttribute('data-ad-slot',unit);
+    ins.setAttribute('data-ad-format',rail?'vertical':'horizontal');
+    ins.setAttribute('data-full-width-responsive',rail?'false':'true');
+    el.insertBefore(ins,el.firstChild);
+    el.setAttribute('data-filled','true');el.classList.add('is-live');
+    try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}
+  },
+  observe:function(){
+    var self=this,slots=document.querySelectorAll('.ad-slot');
+    if(!('IntersectionObserver' in window)){for(var i=0;i<slots.length;i++)this.fill(slots[i]);return;}
+    this.observer=new IntersectionObserver(function(es){
+      for(var j=0;j<es.length;j++){if(!es[j].isIntersecting)continue;self.fill(es[j].target);self.observer.unobserve(es[j].target);}
+    },{rootMargin:MONETIZE.lazyViewportMargin});
+    for(var k=0;k<slots.length;k++)this.observer.observe(slots[k]);
+  },
+  detectBlocker:function(done){
+    var bait=document.createElement('div');
+    bait.className='adsbox pub_300x250 ad-placement';
+    bait.setAttribute('aria-hidden','true');
+    bait.style.cssText='position:absolute;left:-9999px;top:-9999px;width:12px;height:12px';
+    document.body.appendChild(bait);
+    setTimeout(function(){
+      var hidden=bait.offsetHeight===0||getComputedStyle(bait).display==='none';
+      if(bait.parentNode)bait.parentNode.removeChild(bait);
+      done(hidden);
+    },1400);
+  },
+  init:function(consentState){
+    this.consent=consentState==='granted';
+    if(!this.active())return;
+    this.load();this.observe();
+    this.detectBlocker(function(b){AdEngine.blocked=b;document.body.classList.toggle('adblocked',b);});
+  }
+};
+
+var Time={
+  format:function(sec,forceHours){
+    var t=Math.max(0,Math.floor(sec));
+    var h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;
+    if(forceHours||h>0)return h+':'+pad2(m)+':'+pad2(s);
+    return pad2(m)+':'+pad2(s);
+  },
+  stamp:function(sec){
+    var t=Math.max(0,Math.round(sec));
+    var h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60,out='';
+    if(h)out+=h+'h';
+    if(h||m)out+=m+'m';
+    if(s||(!h&&!m))out+=s+'s';
+    return out;
+  },
+  parse:function(raw){
+    if(!raw)return null;
+    var str=String(raw).replace(/^#+/,'').trim().toLowerCase().replace(/\s+/g,'');
+    if(!str)return null;
+    if(/^\d{1,3}:\d{1,2}(:\d{1,2})?$/.test(str)){
+      var p=str.split(':').map(Number);
+      var c=p.length===2?p[0]*60+p[1]:p[0]*3600+p[1]*60+p[2];
+      return c>0?c:null;
+    }
+    var cleaned=str.replace(/[^0-9hms.]/g,'');
+    var re=/(\d+(?:\.\d+)?)(h|m|s)?/g,total=0,found=false,m2;
+    while((m2=re.exec(cleaned))!==null){
+      total+=Math.round(parseFloat(m2[1])*(m2[2]==='h'?3600:m2[2]==='s'?1:60));
+      found=true;
+    }
+    if(!found||total<=0)return null;
+    return clamp(total,0,MAX_SECONDS);
+  }
+};
+
+var Sound={
+  ctx:null,master:null,ambient:null,buffers:{},nodes:null,dripTimer:0,
+  volume:0.6,muted:false,mode:'pink',alert:'chime',
+  ensure:function(){
+    if(this.ctx)return this.ctx;
+    var AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC)return null;
+    try{this.ctx=new AC();}catch(e){this.ctx=null;return null;}
+    this.master=this.ctx.createGain();
+    this.master.gain.value=this.muted?0:this.volume;
+    this.master.connect(this.ctx.destination);
+    this.ambient=this.ctx.createGain();
+    this.ambient.gain.value=0.0001;
+    this.ambient.connect(this.master);
+    return this.ctx;
+  },
+  resume:function(){this.ensure();if(this.ctx&&this.ctx.state==='suspended')this.ctx.resume();},
+  setVolume:function(v){this.volume=clamp(v,0,1);if(this.master)this.master.gain.setTargetAtTime(this.muted?0:this.volume,this.ctx.currentTime,0.04);},
+  setMuted:function(f){this.muted=!!f;this.setVolume(this.volume);},
+  fill:function(data,kind){
+    var len=data.length,b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0,brown=0;
+    for(var i=0;i<len;i++){
+      var w=Math.random()*2-1;
+      if(kind==='white')data[i]=w*0.3;
+      else if(kind==='brown'){brown=(brown+0.02*w)/1.02;data[i]=brown*3.4;}
+      else{
+        b0=0.99886*b0+w*0.0555179;b1=0.99332*b1+w*0.0750759;b2=0.969*b2+w*0.153852;
+        b3=0.8665*b3+w*0.3104856;b4=0.55*b4+w*0.5329522;b5=-0.7616*b5-w*0.016898;
+        data[i]=(b0+b1+b2+b3+b4+b5+b6+w*0.5362)*0.105;b6=w*0.115926;
+      }
+    }
+    var fade=Math.floor(len*0.06);
+    for(var j=0;j<fade;j++){var k=j/fade,t=len-fade+j;data[t]=data[t]*(1-k)+data[j]*k;}
+  },
+  buffer:function(kind){
+    if(this.buffers[kind])return this.buffers[kind];
+    var ctx=this.ctx,len=Math.floor(ctx.sampleRate*6),buf=ctx.createBuffer(2,len,ctx.sampleRate);
+    for(var c=0;c<2;c++)this.fill(buf.getChannelData(c),kind);
+    this.buffers[kind]=buf;return buf;
+  },
+  start:function(){
+    this.resume();var ctx=this.ctx;
+    if(!ctx||this.mode==='none')return;
+    this.stop(true);
+    var src=ctx.createBufferSource();
+    var kind=this.mode==='rain'?'white':this.mode==='brown'?'brown':'pink';
+    src.buffer=this.buffer(kind);src.loop=true;
+    var filter=ctx.createBiquadFilter(),head=src,gain=ctx.createGain();
+    var nodes=[src,filter,gain],oscs=[];
+    if(this.mode==='pink'){filter.type='lowpass';filter.frequency.value=7600;filter.Q.value=0.4;gain.gain.value=0.75;}
+    else if(this.mode==='brown'){filter.type='lowpass';filter.frequency.value=440;filter.Q.value=0.8;gain.gain.value=1.15;}
+    else if(this.mode==='rain'){
+      var hp=ctx.createBiquadFilter();hp.type='highpass';hp.frequency.value=360;hp.Q.value=0.7;
+      filter.type='bandpass';filter.frequency.value=1550;filter.Q.value=0.45;gain.gain.value=0.6;
+      head.connect(hp);head=hp;nodes.push(hp);
+    }else{filter.type='lowpass';filter.frequency.value=900;filter.Q.value=0.7;gain.gain.value=0.9;}
+    if(this.mode==='ocean'){
+      var sw=ctx.createOscillator(),sa=ctx.createGain();
+      sw.frequency.value=0.085;sa.gain.value=620;sw.connect(sa);sa.connect(filter.frequency);sw.start();oscs.push(sw);
+    }
+    if(this.mode==='rain'){
+      var gu=ctx.createOscillator(),ga=ctx.createGain();
+      gu.frequency.value=0.16;ga.gain.value=0.16;gu.connect(ga);ga.connect(gain.gain);gu.start();oscs.push(gu);
+    }
+    head.connect(filter);filter.connect(gain);gain.connect(this.ambient);src.start();
+    this.nodes=nodes.concat(oscs);
+    var t=ctx.currentTime;
+    this.ambient.gain.cancelScheduledValues(t);
+    this.ambient.gain.setValueAtTime(this.ambient.gain.value,t);
+    this.ambient.gain.linearRampToValueAtTime(1,t+1.5);
+    this.scheduleDrip();
+  },
+  scheduleDrip:function(){
+    var self=this;clearTimeout(this.dripTimer);
+    if(this.mode!=='rain'||!this.ctx)return;
+    this.dripTimer=setTimeout(function(){self.drop();self.scheduleDrip();},160+Math.random()*900);
+  },
+  drop:function(){
+    var ctx=this.ctx;if(!ctx)return;
+    var t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain(),f=900+Math.random()*1700;
+    o.type='sine';o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(f*0.55,t+0.09);
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(0.05+Math.random()*0.05,t+0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+0.15);
+    o.connect(g);g.connect(this.ambient);o.start(t);o.stop(t+0.2);
+  },
+  stop:function(instant){
+    clearTimeout(this.dripTimer);this.dripTimer=0;
+    var nodes=this.nodes;this.nodes=null;
+    if(!this.ctx||!nodes)return;
+    var ctx=this.ctx,fade=instant?0.08:0.8,t=ctx.currentTime;
+    this.ambient.gain.cancelScheduledValues(t);
+    this.ambient.gain.setValueAtTime(this.ambient.gain.value,t);
+    this.ambient.gain.linearRampToValueAtTime(0.0001,t+fade);
+    setTimeout(function(){
+      for(var i=0;i<nodes.length;i++){
+        try{if(typeof nodes[i].stop==='function')nodes[i].stop();}catch(e){}
+        try{nodes[i].disconnect();}catch(e2){}
+      }
+    },fade*1000+80);
+  },
+  tone:function(type,freq,at,peak,decay){
+    var ctx=this.ctx,o=ctx.createOscillator(),g=ctx.createGain();
+    o.type=type;o.frequency.setValueAtTime(freq,at);
+    g.gain.setValueAtTime(0.0001,at);
+    g.gain.exponentialRampToValueAtTime(peak,at+0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001,at+decay);
+    o.connect(g);g.connect(this.master);o.start(at);o.stop(at+decay+0.05);
+  },
+  playAlert:function(){
+    this.resume();if(!this.ctx)return;
+    var t=this.ctx.currentTime+0.03;
+    if(this.alert==='chime')this.chime(t);
+    else if(this.alert==='synth')this.synth(t);
+    else if(this.alert==='beep')this.beep(t);
+    else this.bell(t);
+  },
+  chime:function(t){
+    var n=[523.25,659.25,783.99,1046.5,1318.51];
+    for(var i=0;i<n.length;i++){var a=t+i*0.15;
+      this.tone('sine',n[i],a,0.2,1.6);this.tone('sine',n[i]*2.005,a,0.05,0.8);this.tone('sine',n[i]*0.5,a,0.06,1.9);}
+  },
+  synth:function(t){
+    var ctx=this.ctx,seq=[261.63,329.63,392.0,523.25];
+    var o=ctx.createOscillator(),sub=ctx.createOscillator(),f=ctx.createBiquadFilter(),g=ctx.createGain();
+    o.type='sawtooth';sub.type='square';
+    o.frequency.setValueAtTime(seq[0],t);sub.frequency.setValueAtTime(seq[0]*0.5,t);
+    for(var i=0;i<seq.length;i++){o.frequency.setValueAtTime(seq[i],t+i*0.14);sub.frequency.setValueAtTime(seq[i]*0.5,t+i*0.14);}
+    o.frequency.exponentialRampToValueAtTime(seq[0]*0.5,t+1.05);
+    f.type='lowpass';f.Q.value=7;
+    f.frequency.setValueAtTime(5400,t);f.frequency.exponentialRampToValueAtTime(380,t+1.05);
+    g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.19,t+0.03);
+    g.gain.setValueAtTime(0.19,t+0.68);g.gain.exponentialRampToValueAtTime(0.0001,t+1.15);
+    o.connect(f);sub.connect(f);f.connect(g);g.connect(this.master);
+    o.start(t);sub.start(t);o.stop(t+1.25);sub.stop(t+1.25);
+  },
+  beep:function(t){for(var i=0;i<3;i++){var a=t+i*0.19;this.tone('square',920,a,0.16,0.13);this.tone('sine',1840,a,0.05,0.1);}},
+  bell:function(t){
+    var ctx=this.ctx,c=ctx.createOscillator(),m=ctx.createOscillator(),ma=ctx.createGain(),g=ctx.createGain();
+    c.type='sine';m.type='sine';
+    c.frequency.setValueAtTime(660,t);m.frequency.setValueAtTime(660*1.414,t);
+    ma.gain.setValueAtTime(1400,t);ma.gain.exponentialRampToValueAtTime(20,t+1.1);
+    g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.22,t+0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+1.9);
+    m.connect(ma);ma.connect(c.frequency);c.connect(g);g.connect(this.master);
+    c.start(t);m.start(t);c.stop(t+2);m.stop(t+2);
+  },
+  blip:function(high){
+    if(!this.ctx)return;
+    var t=this.ctx.currentTime+0.01;
+    this.tone(high?'square':'sine',high?1180:760,t,high?0.14:0.1,high?0.14:0.1);
+  },
+  changeTone:function(){
+    if(!this.ctx)return;
+    var t=this.ctx.currentTime+0.01;
+    this.tone('triangle',880,t,0.13,0.16);
+    this.tone('triangle',1320,t+0.12,0.1,0.2);
+  }
+};
+
+var Voice={
+  supported:!!(window.speechSynthesis&&window.SpeechSynthesisUtterance),
+  on:false,
+  say:function(text){
+    if(!this.on||!this.supported)return;
+    try{
+      window.speechSynthesis.cancel();
+      var u=new SpeechSynthesisUtterance(text);
+      u.rate=1.06;u.pitch=1;u.volume=0.95;
+      window.speechSynthesis.speak(u);
+    }catch(e){}
+  },
+  stop:function(){ if(this.supported){try{window.speechSynthesis.cancel();}catch(e){}} }
+};
+
+var Tracker={
+  key:'ot.sessions.v1',
+  data:{date:'',count:0,circuits:0,last:0},
+  today:function(){var d=new Date();return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate());},
+  load:function(){var s=STORE.get(this.key,null);if(s&&s.date===this.today())this.data=s;},
+  add:function(){
+    this.data.date=this.today();this.data.count+=1;this.data.circuits+=state.rounds;this.data.last=Date.now();
+    STORE.set(this.key,this.data);this.render();
+  },
+  render:function(){
+    var c=$('#trackerCount'),m=$('#trackerMeta');
+    if(!c||!m)return;
+    c.textContent=String(this.data.count);
+    if(!this.data.count){m.textContent='No circuits logged in this tab yet.';return;}
+    var w=new Date(this.data.last);
+    m.textContent=this.data.circuits+' circuit'+(this.data.circuits===1?'':'s')+' · last ended '+pad2(w.getHours())+':'+pad2(w.getMinutes());
+  }
+};
+
+var state={
+  mode:'simple',
+  duration:420,remaining:420,endAt:0,running:false,completed:false,raf:0,
+  index:0,phase:'work',phaseEnd:0,phaseStart:0,rounds:2,round:1,plan:[],planIndex:0,total:0,elapsed:0,
+  voice:true,warn:true
+};
+
+var el={};
+var lastText='',lastOffset=-1,lastBeep=-1,zenTimer=0,wakeLock=null,armDone=false;
+
+function announce(m){var l=$('#live');if(l)l.textContent=m;}
+
+function buildPlan(){
+  var plan=[];
+  for(var r=0;r<state.rounds;r++){
+    for(var i=0;i<12;i++){
+      plan.push({type:'work',index:i,round:r+1,len:WORK});
+      if(i<11)plan.push({type:'rest',index:i,round:r+1,len:REST});
+    }
+    if(r<state.rounds-1)plan.push({type:'roundrest',index:11,round:r+1,len:ROUND_REST});
+  }
+  state.plan=plan;
+  state.total=0;
+  for(var k=0;k<plan.length;k++)state.total+=plan[k].len;
+}
+
+function moveName(i){
+  var list=document.querySelectorAll('#exList li[data-name]');
+  return list[i]?list[i].getAttribute('data-name'):('Move '+(i+1));
+}
+
+function render(){
+  var isWorkout=state.mode==='workout';
+  var total=isWorkout?state.total:state.duration;
+  var elapsed=isWorkout?state.elapsed:(state.duration-state.remaining);
+  var ratio=total>0?clamp(1-elapsed/total,0,1):0;
+  var showSeconds=isWorkout?true:false;
+  var label=Time.format(Math.max(0,Math.ceil(state.remaining-0.0001)),false);
+
+  if(label!==lastText){
+    lastText=label;
+    el.clock.textContent='';
+    var chars=label.split('');
+    for(var i=0;i<chars.length;i++){
+      var s=document.createElement('span');
+      s.textContent=chars[i];
+      if(chars[i]===':')s.className='sep';
+      el.clock.appendChild(s);
+    }
+    document.title=(state.running?label+' · ':'')+(isWorkout?'7 Minute Workout':'7 Minute Timer');
+  }
+
+  var offset=CIRC*(1-ratio);
+  if(Math.abs(offset-lastOffset)>0.25){lastOffset=offset;el.ring.style.strokeDashoffset=String(offset);}
+
+  if(isWorkout){
+    el.moveName.textContent=state.phase==='work'||state.phase==='rest'||state.phase==='roundrest'?moveName(state.index):'';
+    if(state.phase==='rest'&&state.index<11)el.moveNext.textContent='Next: '+moveName(state.index+1);
+    else if(state.phase==='roundrest')el.moveNext.textContent='Circuit '+state.round+' of '+state.rounds;
+    else el.moveNext.textContent='';
+    el.clockSub.textContent=state.completed?'circuit complete':state.rounds+' circuit'+(state.rounds===1?'':'s')+' · '+Time.format(total-elapsed,false)+' left of '+Time.format(total,false);
+  }else{
+    el.moveName.textContent='';el.moveNext.textContent='';
+    el.clockSub.textContent=state.completed?'session complete':'7 minute timer';
+  }
+  el.start.disabled=!isWorkout&&state.duration<=0;
+  syncPresets();
+}
+
+function syncInputs(){
+  el.hours.value=String(Math.floor(state.duration/3600));
+  el.minutes.value=String(Math.floor((state.duration%3600)/60));
+  el.seconds.value=String(state.duration%60);
+}
+
+function syncHash(){
+  var tag=state.mode==='workout'?'#workout':'#'+Time.stamp(state.duration);
+  if(tag!==location.hash){
+    if(history&&history.replaceState)history.replaceState(null,'',tag);
+    else location.hash=tag.slice(1);
+  }
+}
+
+function syncPresets(){
+  for(var i=0;i<PRESETS.length;i++){
+    PRESETS[i].el.setAttribute('aria-pressed',state.mode==='simple'&&PRESETS[i].seconds===state.duration?'true':'false');
+  }
+}
+
+function setDuration(sec,opts){
+  var o=opts||{};
+  if(state.mode==='workout')return;
+  state.duration=clamp(Math.round(sec)||0,0,MAX_SECONDS);
+  if(!state.running){state.remaining=state.duration;state.completed=false;}
+  if(!o.fromInput)syncInputs();
+  if(!o.silent)syncHash();
+  el.start.textContent=state.running?'Pause':(state.remaining<=0&&state.duration>0?'Restart':'Start');
+  render();
+}
+
+function setMode(mode){
+  if(state.mode===mode)return;
+  if(state.running)reset();
+  state.mode=mode;
+  el.modeSimple.setAttribute('aria-pressed',mode==='simple'?'true':'false');
+  el.modeWorkout.setAttribute('aria-pressed',mode==='workout'?'true':'false');
+  el.customWrap.hidden=mode==='workout';
+  el.customLabel.textContent=mode==='workout'?'Timings':'Custom duration';
+  el.roundsWrap.hidden=mode!=='workout';
+  el.dots.hidden=mode!=='workout';
+  el.presetsWrap.hidden=mode==='workout';
+  if(mode==='workout'){
+    buildPlan();
+    state.remaining=state.total;state.elapsed=0;state.index=0;state.phase='work';state.round=1;
+  }else{
+    state.remaining=state.duration;state.elapsed=0;
+  }
+  document.body.classList.remove('is-rest');
+  syncHash();syncDots();highlightList();render();
+}
+
+function buildDots(){
+  el.dots.textContent='';
+  for(var i=0;i<12;i++){
+    var d=document.createElement('span');
+    d.className='dot';d.setAttribute('data-i',String(i));
+    el.dots.appendChild(d);
+  }
+  syncDots();
+}
+
+function syncDots(){
+  var ds=el.dots.querySelectorAll('.dot');
+  for(var i=0;i<ds.length;i++){
+    var done=i<state.index;
+    ds[i].classList.toggle('done',done);
+    ds[i].classList.toggle('now',i===state.index&&state.running);
+  }
+}
+
+function highlightList(){
+  var list=document.querySelectorAll('#exList li.ex');
+  for(var i=0;i<list.length;i++){
+    list[i].classList.toggle('is-now',state.mode==='workout'&&i===state.index&&state.running);
+    list[i].classList.toggle('is-done',state.mode==='workout'&&i<state.index);
+  }
+}
+
+function setBodyState(){
+  document.body.classList.toggle('running',state.running);
+  document.body.classList.toggle('complete',state.completed&&!state.running);
+  document.body.classList.toggle('is-rest',state.mode==='workout'&&state.phase!=='work'&&state.running);
+  el.hours.disabled=state.running;el.minutes.disabled=state.running;el.seconds.disabled=state.running;
+}
+
+function requestWake(){
+  if(!('wakeLock' in navigator))return;
+  if(wakeLock){return;}
+  try{
+    navigator.wakeLock.request('screen').then(function(l){wakeLock=l;l.addEventListener('release',function(){wakeLock=null;});}).catch(function(){});
+  }catch(e){}
+}
+
+function releaseWake(){
+  if(wakeLock){try{wakeLock.release();}catch(e){}wakeLock=null;}
+}
+
+function frame(){
+  state.raf=requestAnimationFrame(frame);
+  if(state.mode==='workout'){
+    var left=(state.phaseEnd-Date.now())/1000;
+    state.remaining=Math.max(0,left);
+    state.elapsed=state.elapsedBase();
+    if(state.warn&&left<=3&&left>0){
+      var b=Math.ceil(left);
+      if(b!==lastBeep){lastBeep=b;Sound.blip(b===1);}
+    }
+    if(left<=0)advance();
+    render();
+  }else{
+    var l2=(state.endAt-Date.now())/1000;
+    if(l2<=0){state.remaining=0;render();complete();return;}
+    state.remaining=l2;
+    render();
+  }
+}
+
+state.elapsedBase=function(){
+  var total=0;
+  for(var i=0;i<state.planIndex;i++)total+=state.plan[i].len;
+  return total+(state.plan[state.planIndex]?state.plan[state.planIndex].len-state.remaining:0);
+};
+
+function advance(){
+  state.planIndex++;
+  if(state.planIndex>=state.plan.length){state.remaining=0;render();complete();return;}
+  var seg=state.plan[state.planIndex];
+  state.phase=seg.type;
+  state.index=seg.index;
+  if(seg.type==='roundrest'){state.round=seg.round+1;state.index=0;}
+  state.phaseStart=Date.now();
+  state.phaseEnd=state.phaseStart+seg.len*1000;
+  state.remaining=seg.len;
+  lastBeep=-1;
+  Sound.changeTone();
+  if(seg.type==='work')Voice.say(moveName(seg.index)+'. Thirty seconds.');
+  else if(seg.type==='rest'&&seg.index<11)Voice.say('Rest. Next, '+moveName(seg.index+1)+'.');
+  else if(seg.type==='roundrest')Voice.say('Circuit done. Rest, then circuit '+state.round+' of '+state.rounds+'.');
+  syncDots();highlightList();
+}
+
+function start(){
+  if(state.mode==='workout'){
+    if(!state.plan.length)buildPlan();
+    if(state.completed){reset();return;}
+    if(state.remaining<=0){reset();}
+    state.running=true;
+    var seg=state.plan[state.planIndex];
+    state.phaseEnd=Date.now()+state.remaining*1000;
+    state.phaseStart=state.phaseEnd-seg.len*1000;
+    lastBeep=-1;
+    Sound.resume();
+    if(Sound.mode!=='none')Sound.start();
+    if(state.phase==='work')Voice.say('Starting. '+moveName(state.index)+'.');
+    requestWake();
+    setBodyState();syncDots();highlightList();
+    cancelAnimationFrame(state.raf);frame();render();
+    announce('Workout started');
+    return;
+  }
+  if(state.duration<=0)return;
+  if(state.remaining<=0)state.remaining=state.duration;
+  state.completed=false;
+  state.endAt=Date.now()+state.remaining*1000;
+  state.running=true;
+  Sound.resume();
+  if(Sound.mode!=='none')Sound.start();
+  el.stateLabel.textContent='Focus';
+  el.start.textContent='Pause';
+  setBodyState();
+  cancelAnimationFrame(state.raf);frame();render();
+  announce('Timer started');
+}
+
+function pause(){
+  if(!state.running)return;
+  if(state.mode==='workout'){
+    state.remaining=Math.max(0,(state.phaseEnd-Date.now())/1000);
+  }else{
+    state.remaining=Math.max(0,(state.endAt-Date.now())/1000);
+  }
+  state.running=false;
+  cancelAnimationFrame(state.raf);
+  Sound.stop();Voice.stop();releaseWake();
+  el.stateLabel.textContent='Paused';
+  el.start.textContent='Resume';
+  setBodyState();syncDots();highlightList();render();
+  announce('Paused');
+}
+
+function reset(){
+  state.running=false;state.completed=false;
+  cancelAnimationFrame(state.raf);
+  Sound.stop();Voice.stop();releaseWake();
+  document.body.classList.remove('is-rest');
+  if(state.mode==='workout'){
+    buildPlan();
+    state.planIndex=0;state.phase='work';state.index=0;state.round=1;
+    state.remaining=state.total;state.elapsed=0;
+  }else{
+    state.remaining=state.duration;
+  }
+  lastBeep=-1;
+  el.stateLabel.textContent='Ready';
+  el.start.textContent='Start';
+  setBodyState();syncDots();highlightList();render();
+  announce('Reset');
+}
+
+function complete(){
+  state.running=false;state.completed=true;state.remaining=0;
+  cancelAnimationFrame(state.raf);
+  Sound.stop(true);Voice.stop();releaseWake();
+  Sound.playAlert();
+  var b=$('#burst');
+  if(b){b.classList.remove('go');void b.offsetWidth;b.classList.add('go');}
+  document.body.classList.remove('is-rest');
+  el.stateLabel.textContent='Complete';
+  el.start.textContent=state.mode==='workout'?'Again':'Restart';
+  setBodyState();syncDots();highlightList();
+  if(state.mode==='workout')Tracker.add();
+  render();
+  announce(state.mode==='workout'?'Workout complete':'Time is up');
+}
+
+function toggle(){if(state.running)pause();else start();}
+
+function readInputs(){
+  var h=clamp(parseInt(el.hours.value,10)||0,0,99);
+  var m=clamp(parseInt(el.minutes.value,10)||0,0,59);
+  var s=clamp(parseInt(el.seconds.value,10)||0,0,59);
+  return h*3600+m*60+s;
+}
+
+function toggleZen(force){
+  var next=typeof force==='boolean'?force:!document.body.classList.contains('zen');
+  document.body.classList.toggle('zen',next);
+  el.btnZen.setAttribute('aria-pressed',next?'true':'false');
+  $('#zenLabel').textContent=next?'Exit focus mode':'Distraction-free';
+  var h=$('#zenHint');
+  clearTimeout(zenTimer);
+  if(next){h.classList.remove('gone');zenTimer=setTimeout(function(){h.classList.add('gone');},3800);}
+  else h.classList.add('gone');
+}
+
+function applyHash(){
+  var raw=location.hash.replace(/^#/,'');
+  if(raw.toLowerCase()==='workout'){
+    if(state.mode!=='workout')setMode('workout');
+    return;
+  }
+  if(state.mode!=='simple')setMode('simple');
+  var p=Time.parse(raw);
+  if(p)setDuration(p);
+  syncInputs();
+}
+
+function isTyping(t){
+  if(!t||!t.tagName)return false;
+  var g=t.tagName.toLowerCase();
+  return g==='input'||g==='textarea'||g==='select'||t.isContentEditable;
+}
+
+function initConsent(){
+  var banner=$('#consent'),stored=Consent.load();
+  if(stored==='granted'){AdEngine.init('granted');return;}
+  if(stored==='denied'){AdEngine.init('denied');return;}
+  setTimeout(function(){banner.classList.add('show');},900);
+  $('#btnConsentAccept').addEventListener('click',function(){Consent.grant('granted');banner.classList.remove('show');AdEngine.init('granted');});
+  $('#btnConsentDecline').addEventListener('click',function(){Consent.grant('denied');banner.classList.remove('show');AdEngine.init('denied');});
+}
+
+function init(){
+  el.clock=$('#clock');el.clockSub=$('#clockSub');el.ring=$('#ring');
+  el.stateLabel=$('#stateLabel');el.start=$('#btnStart');
+  el.moveName=$('#moveName');el.moveNext=$('#moveNext');el.dots=$('#dots');
+  el.hours=$('#inHours');el.minutes=$('#inMinutes');el.seconds=$('#inSeconds');
+  el.btnZen=$('#btnZen');el.modeSimple=$('#modeSimple');el.modeWorkout=$('#modeWorkout');
+  el.customWrap=$('#customWrap');el.customLabel=$('#customLabel');el.roundsWrap=$('#roundsWrap');el.presetsWrap=$('#presets');
+  el.ring.style.strokeDasharray=String(CIRC);
+  el.ring.style.strokeDashoffset='0';
+
+  Tracker.load();Tracker.render();
+  buildDots();
+
+  var host=$('#presets'),frag=document.createDocumentFragment();
+  for(var i=0;i<PRESETS.length;i++){
+    (function(p){
+      var c=document.createElement('button');
+      c.type='button';c.className='chip';c.textContent=p.label;
+      c.setAttribute('aria-pressed','false');
+      c.setAttribute('aria-label','Set timer to '+p.label);
+      c.addEventListener('click',function(){
+        Sound.resume();
+        if(state.mode==='workout')setMode('simple');
+        setDuration(p.seconds);
+        announce('Timer set to '+p.label);
+      });
+      p.el=c;frag.appendChild(c);
+    })(PRESETS[i]);
+  }
+  host.appendChild(frag);
+
+  var rounds=$('#rounds');
+  rounds.addEventListener('click',function(ev){
+    var b=ev.target.closest('[data-rounds]');
+    if(!b)return;
+    state.rounds=parseInt(b.getAttribute('data-rounds'),10);
+    var bs=rounds.querySelectorAll('[data-rounds]');
+    for(var k=0;k<bs.length;k++)bs[k].setAttribute('aria-pressed',bs[k]===b?'true':'false');
+    if(!state.running){buildPlan();state.planIndex=0;state.phase='work';state.index=0;state.round=1;state.remaining=state.total;state.elapsed=0;syncDots();highlightList();render();}
+  });
+
+  applyHash();
+  buildPlan();
+  state.planIndex=0;
+  if(!location.hash)syncHash();
+
+  el.start.addEventListener('click',toggle);
+  $('#btnReset').addEventListener('click',reset);
+  el.btnZen.addEventListener('click',function(){toggleZen();});
+  el.modeSimple.addEventListener('click',function(){Sound.resume();setMode('simple');});
+  el.modeWorkout.addEventListener('click',function(){Sound.resume();setMode('workout');});
+
+  var inputs=[el.hours,el.minutes,el.seconds];
+  for(var j=0;j<inputs.length;j++){
+    inputs[j].addEventListener('input',function(){if(state.running||state.mode==='workout')return;setDuration(readInputs(),{fromInput:true,silent:true});});
+    inputs[j].addEventListener('blur',function(){if(state.running||state.mode==='workout')return;setDuration(readInputs());});
+  }
+
+  $('#selSound').addEventListener('change',function(e){
+    Sound.mode=e.target.value;Sound.resume();
+    if(state.running&&Sound.mode!=='none')Sound.start();else Sound.stop();
+  });
+  $('#selAlert').addEventListener('change',function(e){Sound.alert=e.target.value;});
+  $('#btnTest').addEventListener('click',function(){Sound.resume();Sound.playAlert();});
+
+  var vol=$('#rngVolume'),vl=$('#volLabel');
+  var applyVol=function(){
+    var p=clamp(parseInt(vol.value,10)||0,0,100);
+    vol.style.setProperty('--pct',p+'%');vl.textContent=String(p);Sound.setVolume(p/100);
+  };
+  vol.addEventListener('input',applyVol);applyVol();
+
+  var mute=$('#btnMute');
+  mute.addEventListener('click',function(){
+    var next=mute.getAttribute('aria-pressed')!=='true';
+    mute.setAttribute('aria-pressed',next?'true':'false');
+    Sound.setMuted(next);document.body.classList.toggle('muted',next);
+  });
+
+  var swVoice=$('#swVoice');
+  swVoice.addEventListener('click',function(){
+    var next=swVoice.getAttribute('aria-checked')!=='true';
+    swVoice.setAttribute('aria-checked',next?'true':'false');
+    state.voice=next;Voice.on=next;Voice.stop();
+    $('#voiceNote').textContent=next?'Announces each move so you can keep your eyes off the screen.':'Voice cues off.';
+  });
+  if(!Voice.supported){
+    swVoice.setAttribute('aria-checked','false');
+    swVoice.disabled=true;swVoice.style.opacity='.4';
+    $('#voiceNote').textContent='Not supported in this browser.';
+    state.voice=false;Voice.on=false;
+  }else{
+    state.voice=true;Voice.on=true;
+  }
+
+  var swWarn=$('#swWarn');
+  swWarn.addEventListener('click',function(){
+    var next=swWarn.getAttribute('aria-checked')!=='true';
+    swWarn.setAttribute('aria-checked',next?'true':'false');
+    state.warn=next;
+  });
+
+  addEventListener('hashchange',function(){if(!state.running)applyHash();});
+
+  document.addEventListener('keydown',function(ev){
+    if(isTyping(ev.target)||ev.metaKey||ev.ctrlKey||ev.altKey)return;
+    if(ev.key===' '||ev.key==='k'||ev.key==='K'){ev.preventDefault();toggle();}
+    else if(ev.key==='r'||ev.key==='R'){ev.preventDefault();reset();}
+    else if(ev.key==='d'||ev.key==='D'){ev.preventDefault();toggleZen();}
+    else if(ev.key==='Escape'&&document.body.classList.contains('zen')){toggleZen(false);}
+    else if(ev.key==='w'||ev.key==='W'){ev.preventDefault();setMode(state.mode==='workout'?'simple':'workout');}
+  });
+
+  var arm=function(){
+    if(armDone)return;armDone=true;
+    Sound.resume();
+    removeEventListener('pointerdown',arm);removeEventListener('keydown',arm);
+  };
+  addEventListener('pointerdown',arm);addEventListener('keydown',arm);
+
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='visible'&&state.running&&state.mode==='workout')requestWake();
+  });
+
+  addEventListener('resize',function(){lastOffset=-1;render();});
+
+  initConsent();
+  setBodyState();
+  highlightList();
+  render();
+}
+
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+else init();
+})();
+</script>
+</body>
+</html>

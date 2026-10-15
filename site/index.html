@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#09090b">
+<title>Online Timer — Free Countdown Timer &amp; Pomodoro Clock</title>
+<meta name="description" content="Free online countdown timer with a depleting progress ring, ambient noise, distraction-free mode and shareable presets. No signup, no downloads.">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Online Timer — Free Countdown Timer &amp; Pomodoro Clock">
+<meta property="og:description" content="A beautifully minimal countdown timer with ambient sound and a distraction-free focus mode.">
+<meta property="og:site_name" content="Online Timer">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://example.com/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Online Timer",
+      "url": "https://example.com/",
+      "description": "Free online countdown timer with a depleting progress ring, ambient sound, distraction-free mode and shareable presets.",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Any modern web browser",
+      "browserRequirements": "Requires JavaScript",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Countdown timer with depleting SVG progress ring",
+        "Ambient background sound (pink noise, brown noise, rain, ocean)",
+        "Distraction-free focus mode",
+        "Shareable preset links such as /#25m",
+        "Custom hours, minutes and seconds",
+        "Session tracker"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How do I set a timer for a specific number of minutes?", "acceptedAnswer": { "@type": "Answer", "text": "Use the quick preset chips, type into the hours, minutes and seconds fields, or open a shareable link such as /#25m which pre-loads a 25 minute countdown." } },
+        { "@type": "Question", "name": "Can I use this timer with no sound distractions?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Distraction-free mode hides every control and leaves only the countdown clock and progress ring, and you can set the background sound to Off." } },
+        { "@type": "Question", "name": "Does the timer need an internet connection?", "acceptedAnswer": { "@type": "Answer", "text": "After the page loads, no. The timer, the ambient sound and the alert tones are all generated locally in your browser using the Web Audio API." } }
+      ]
+    }
+  ]
+}
+</script>
+<style>*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:JetBrains Mono,ui-monospace,SFMono-Regular,Menlo,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}.visible{visibility:visible}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.z-\[2\]{z-index:2}.mx-auto{margin-left:auto;margin-right:auto}.\!mb-0{margin-bottom:0!important}.\!mb-4{margin-bottom:1rem!important}.mb-2\.5{margin-bottom:.625rem}.mb-3{margin-bottom:.75rem}.ml-auto{margin-left:auto}.mt-1{margin-top:.25rem}.mt-1\.5{margin-top:.375rem}.mt-10{margin-top:2.5rem}.mt-12{margin-top:3rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-3\.5{margin-top:.875rem}.mt-4{margin-top:1rem}.mt-5{margin-top:1.25rem}.block{display:block}.flex{display:flex}.table{display:table}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.max-h-64{max-height:16rem}.w-10{width:2.5rem}.w-9{width:2.25rem}.w-full{width:100%}.min-w-0{min-width:0}.max-w-3xl{max-width:48rem}.max-w-lg{max-width:32rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.resize{resize:both}.grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}.overflow-y-auto{overflow-y:auto}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.border{border-width:1px}.border-t{border-top-width:1px}.border-white{--tw-border-opacity:1;border-color:rgb(255 255 255/var(--tw-border-opacity,1))}.border-white\/10{border-color:hsla(0,0%,100%,.1)}.border-white\/5{border-color:hsla(0,0%,100%,.05)}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.bg-white\/5{background-color:hsla(0,0%,100%,.05)}.\!bg-gradient-to-b{background-image:linear-gradient(to bottom,var(--tw-gradient-stops))!important}.\!from-amber-200{--tw-gradient-from:#fde68a var(--tw-gradient-from-position)!important;--tw-gradient-to:hsla(48,97%,77%,0) var(--tw-gradient-to-position)!important;--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)!important}.\!to-amber-500{--tw-gradient-to:#f59e0b var(--tw-gradient-to-position)!important}.p-4{padding:1rem}.p-5{padding:1.25rem}.\!px-3{padding-left:.75rem!important;padding-right:.75rem!important}.\!px-4{padding-left:1rem!important;padding-right:1rem!important}.\!py-1{padding-top:.25rem!important;padding-bottom:.25rem!important}.\!py-1\.5{padding-top:.375rem!important;padding-bottom:.375rem!important}.\!py-2{padding-top:.5rem!important;padding-bottom:.5rem!important}.px-1{padding-left:.25rem;padding-right:.25rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-1\.5{padding-top:.375rem;padding-bottom:.375rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.pb-1{padding-bottom:.25rem}.pb-24{padding-bottom:6rem}.pt-1{padding-top:.25rem}.pt-10{padding-top:2.5rem}.pt-2{padding-top:.5rem}.pt-5{padding-top:1.25rem}.text-center{text-align:center}.text-right{text-align:right}.font-mono{font-family:JetBrains Mono,ui-monospace,SFMono-Regular,Menlo,monospace}.\!text-\[\.75rem\]{font-size:.75rem!important}.\!text-\[clamp\(1\.5rem\2c 4\.4vw\2c 2\.1rem\)\]{font-size:clamp(1.5rem,4.4vw,2.1rem)!important}.text-\[\.66rem\]{font-size:.66rem}.text-\[\.68rem\]{font-size:.68rem}.text-\[\.6rem\]{font-size:.6rem}.text-\[\.72rem\]{font-size:.72rem}.text-\[\.75rem\]{font-size:.75rem}.text-\[\.76rem\]{font-size:.76rem}.text-\[\.7rem\]{font-size:.7rem}.text-\[\.8rem\]{font-size:.8rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.\!font-bold{font-weight:700!important}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.\!leading-\[1\.2\]{line-height:1.2!important}.leading-relaxed{line-height:1.625}.leading-tight{line-height:1.25}.\!tracking-\[-\.025em\]{letter-spacing:-.025em!important}.tracking-\[\.18em\]{letter-spacing:.18em}.tracking-\[\.2em\]{letter-spacing:.2em}.tracking-tight{letter-spacing:-.025em}.\!text-amber-950{--tw-text-opacity:1!important;color:rgb(69 26 3/var(--tw-text-opacity,1))!important}.\!text-zinc-50{--tw-text-opacity:1!important;color:rgb(250 250 250/var(--tw-text-opacity,1))!important}.text-amber-500{--tw-text-opacity:1;color:rgb(245 158 11/var(--tw-text-opacity,1))}.text-amber-500\/80{color:rgba(245,158,11,.8)}.text-zinc-100{--tw-text-opacity:1;color:rgb(244 244 245/var(--tw-text-opacity,1))}.text-zinc-200{--tw-text-opacity:1;color:rgb(228 228 231/var(--tw-text-opacity,1))}.text-zinc-300{--tw-text-opacity:1;color:rgb(212 212 216/var(--tw-text-opacity,1))}.text-zinc-400{--tw-text-opacity:1;color:rgb(161 161 170/var(--tw-text-opacity,1))}.text-zinc-500{--tw-text-opacity:1;color:rgb(113 113 122/var(--tw-text-opacity,1))}.text-zinc-600{--tw-text-opacity:1;color:rgb(82 82 91/var(--tw-text-opacity,1))}.underline{text-decoration-line:underline}.\!no-underline{text-decoration-line:none!important}.underline-offset-2{text-underline-offset:2px}.outline{outline-style:solid}.ring{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}.blur{--tw-blur:blur(8px)}.blur,.drop-shadow{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.drop-shadow{--tw-drop-shadow:drop-shadow(0 1px 2px rgba(0,0,0,.1)) drop-shadow(0 1px 1px rgba(0,0,0,.06))}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-filter{-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.ease-in-out{transition-timing-function:cubic-bezier(.4,0,.2,1)}:root{--dial:clamp(210px,40vmin,400px);--pad:clamp(92px,14vh,160px);--ease:cubic-bezier(.22,1,.36,1);--accent-a:#22d3ee;--accent-b:#818cf8;--accent-c:#e879f9}*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;min-height:100vh;background:#09090b;color:#e4e4e7;font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}button,input,select{font:inherit;color:inherit}:focus-visible{outline:2px solid #818cf8;outline-offset:3px;border-radius:12px}.bg-field{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:radial-gradient(130% 95% at 50% 0,#121219 0,#09090b 58%,#050506 100%)}.bg-grid{inset:0;background-image:linear-gradient(hsla(0,0%,100%,.04) 1px,transparent 0),linear-gradient(90deg,hsla(0,0%,100%,.04) 1px,transparent 0);background-size:68px 68px;opacity:.55;-webkit-mask-image:radial-gradient(72% 62% at 50% 45%,#000 0,transparent 100%);mask-image:radial-gradient(72% 62% at 50% 45%,#000 0,transparent 100%)}.bg-grid,.blob{position:absolute}.blob{border-radius:50%;filter:blur(88px);opacity:.2;transform:translateZ(0);will-change:transform,opacity}.blob-a{width:56vmax;height:56vmax;left:-20vmax;top:-22vmax;background:radial-gradient(circle at 35% 35%,var(--accent-b) 0,rgba(79,70,229,0) 70%)}.blob-b{width:50vmax;height:50vmax;right:-18vmax;top:4vmax;background:radial-gradient(circle at 60% 40%,#0891b2 0,rgba(8,145,178,0) 70%)}.blob-c{width:54vmax;height:54vmax;left:24vmax;bottom:-28vmax;background:radial-gradient(circle at 50% 50%,#7c3aed 0,rgba(124,58,237,0) 70%)}body.running .blob-a{animation:glowA 8.5s var(--ease) infinite}body.running .blob-b{animation:glowB 11s var(--ease) infinite}body.running .blob-c{animation:glowC 9.5s var(--ease) infinite}@keyframes glowA{0%,to{transform:scale(1) translateZ(0);opacity:.18}50%{transform:scale(1.18) translate3d(3%,4%,0);opacity:.4}}@keyframes glowB{0%,to{transform:scale(1.04) translateZ(0);opacity:.16}50%{transform:scale(.9) translate3d(-4%,6%,0);opacity:.32}}@keyframes glowC{0%,to{transform:scale(.96) translateZ(0);opacity:.18}50%{transform:scale(1.22) translate3d(-3%,-5%,0);opacity:.38}}.stage{position:fixed;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:space-between;overflow-y:auto;overscroll-behavior:contain;padding:max(clamp(14px,2.4vw,26px),env(safe-area-inset-top)) clamp(14px,2.4vw,26px) max(clamp(14px,2.4vw,26px),env(safe-area-inset-bottom))}.zone-bot,.zone-top{position:relative;z-index:3;flex:none}.zone-mid{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(18px,3.2vh,32px);padding:var(--pad) 18px;transition:padding .8s var(--ease)}body.zen .zone-mid{padding-top:0;padding-bottom:0}.zen-hide{transition:opacity .4s ease,transform .55s var(--ease),filter .4s ease,visibility 0s linear 0s}body.zen .zen-hide{opacity:0;transform:translate3d(0,14px,0) scale(.985);filter:blur(7px);visibility:hidden;pointer-events:none;transition:opacity .34s ease,transform .5s var(--ease),filter .34s ease,visibility 0s linear .5s}.dial{position:relative;width:var(--dial);height:var(--dial);flex:none;transition:transform .8s var(--ease);will-change:transform}body.zen .dial{transform:scale(1.12)}.ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}.ring-track{fill:none;stroke:hsla(0,0%,100%,.055);stroke-width:8}.ring-progress{fill:none;stroke:url(#ringGradient);stroke-width:8;stroke-linecap:round;filter:url(#ringGlow)}.dial-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 13%}.status-pill{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#a1a1aa}.status-dot{width:6px;height:6px;border-radius:999px;background:#52525b;transition:background .35s ease,box-shadow .35s ease}body.running .status-dot{background:var(--accent-b);box-shadow:0 0 0 4px rgba(129,140,248,.16);animation:blink 1.8s ease-in-out infinite}body.complete .status-dot{background:#34d399;box-shadow:0 0 0 4px rgba(52,211,153,.16)}@keyframes blink{0%,to{opacity:1}50%{opacity:.35}}.clock{margin:.35rem 0 .15rem;font-family:JetBrains Mono,ui-monospace,monospace;font-weight:500;font-size:clamp(2.05rem,8.2vmin,5rem);line-height:1;letter-spacing:-.045em;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#fff,#d3d3dd 52%,#8a8a99);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 28px rgba(120,112,255,.16));transition:filter .6s ease}body.running .clock{filter:drop-shadow(0 8px 42px rgba(129,140,248,.42))}.clock.with-hours{font-size:clamp(1.7rem,6.2vmin,3.9rem)}.clock .sep{opacity:.35}.clock-sub{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#52525b;font-variant-numeric:tabular-nums}.chip{padding:.5rem .95rem;border-radius:999px;font-size:.8rem;font-weight:500;color:#a1a1aa;background:hsla(0,0%,100%,.03);border:1px solid hsla(0,0%,100%,.07);transition:color .22s ease,background .22s ease,border-color .22s ease,transform .22s var(--ease),box-shadow .22s ease}.chip:hover{color:#f4f4f5;background:hsla(0,0%,100%,.07);border-color:hsla(0,0%,100%,.14);transform:translateY(-2px)}.chip[aria-pressed=true]{color:#fff;background:linear-gradient(180deg,rgba(99,102,241,.9),rgba(124,58,237,.85));border-color:rgba(165,180,252,.5);box-shadow:0 10px 26px -12px rgba(99,102,241,.95)}.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;border-radius:999px;font-weight:600;letter-spacing:.01em;border:1px solid transparent;transition:transform .18s var(--ease),background .22s ease,border-color .22s ease,box-shadow .22s ease,color .22s ease}.btn:active{transform:scale(.96)}.btn-primary{min-width:172px;padding:.95rem 2rem;color:#fff;background:linear-gradient(180deg,#6366f1,#7c3aed);box-shadow:0 16px 40px -16px rgba(99,102,241,.95),inset 0 1px 0 hsla(0,0%,100%,.22)}.btn-primary:hover{box-shadow:0 20px 48px -14px #7c3aed,inset 0 1px 0 hsla(0,0%,100%,.28)}.btn-ghost{padding:.95rem 1.35rem;color:#a1a1aa;border-color:hsla(0,0%,100%,.09);background:hsla(0,0%,100%,.03)}.btn-ghost:hover{color:#f4f4f5;border-color:hsla(0,0%,100%,.18);background:hsla(0,0%,100%,.06)}.btn-gold{padding:.7rem 1.15rem;color:#1a1206;background:linear-gradient(180deg,#fde68a,#f59e0b);box-shadow:0 12px 30px -14px rgba(245,158,11,.9),inset 0 1px 0 hsla(0,0%,100%,.5)}.btn-gold:hover{box-shadow:0 16px 36px -12px #f59e0b,inset 0 1px 0 hsla(0,0%,100%,.6)}.panel{border-radius:26px;border:1px solid hsla(0,0%,100%,.07);background:hsla(0,0%,100%,.025);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 30px 80px -40px rgba(0,0,0,.9)}.field-label{display:block;font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#71717a;margin-bottom:.55rem}.num-input{width:100%;padding:.7rem .5rem;text-align:center;border-radius:14px;background:rgba(9,9,11,.75);border:1px solid hsla(0,0%,100%,.08);font-family:JetBrains Mono,ui-monospace,monospace;font-size:1.15rem;font-variant-numeric:tabular-nums;color:#f4f4f5;transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;-moz-appearance:textfield}.num-input::-webkit-inner-spin-button,.num-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.num-input:focus{outline:none;border-color:rgba(129,140,248,.7);box-shadow:0 0 0 4px rgba(99,102,241,.14);background:rgba(9,9,11,.95)}.num-input:disabled{opacity:.4;cursor:not-allowed}select.sel{width:100%;-moz-appearance:none;appearance:none;-webkit-appearance:none;padding:.72rem 2.4rem .72rem .9rem;border-radius:14px;background-color:rgba(9,9,11,.75);background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%2371717a' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.4' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .85rem center;border:1px solid hsla(0,0%,100%,.08);font-size:.88rem;color:#e4e4e7;cursor:pointer;transition:border-color .2s ease,box-shadow .2s ease}select.sel:focus{outline:none;border-color:rgba(129,140,248,.7);box-shadow:0 0 0 4px rgba(99,102,241,.14)}input[type=range].rng{width:100%;height:4px;-moz-appearance:none;appearance:none;-webkit-appearance:none;background:linear-gradient(90deg,#6366f1 0,#7c3aed var(--pct,60%),hsla(0,0%,100%,.1) var(--pct,60%));border-radius:999px;cursor:pointer}input[type=range].rng::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:999px;background:#fff;border:3px solid #6366f1;box-shadow:0 2px 10px rgba(0,0,0,.6);-webkit-transition:transform .16s ease;transition:transform .16s ease}input[type=range].rng::-webkit-slider-thumb:hover{transform:scale(1.18)}input[type=range].rng::-moz-range-thumb{width:16px;height:16px;border-radius:999px;background:#fff;border:3px solid #6366f1;box-shadow:0 2px 10px rgba(0,0,0,.6)}.ad-slot{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;border:1px dashed hsla(0,0%,100%,.12);border-radius:20px;background:repeating-linear-gradient(135deg,hsla(0,0%,100%,.016) 0 10px,hsla(0,0%,100%,.006) 10px 20px);color:#52525b;text-align:center;overflow:hidden;contain:layout paint}.ad-slot .ad-title{font-weight:700;letter-spacing:.26em;color:#52525b}.ad-slot .ad-meta,.ad-slot .ad-title{font-size:.58rem;text-transform:uppercase}.ad-slot .ad-meta{letter-spacing:.14em;color:#3f3f46}.ad-slot.is-live{border-style:solid;border-color:transparent;background:transparent}.ad-slot.is-live .ad-meta,.ad-slot.is-live .ad-title{display:none}.ad-slot .ad-frame{display:none;width:100%}.ad-slot.is-live .ad-frame{display:block}.ad-slot.is-filled{border:none;background:transparent}.rail{position:fixed;top:0;bottom:0;z-index:1;width:clamp(0px,11vw,200px);display:none;align-items:center;justify-content:center;padding:28px 0}.rail-left{left:0}.rail-right{right:0}@media (min-width:1400px){.rail{display:flex}}body.premium .ad-slot,body.premium .rail,body.premium .sponsor-card{display:none!important}.rail .ad-slot{width:100%;height:600px;border-radius:24px}.sponsor-card{display:flex;align-items:center;gap:.9rem;padding:.95rem 1.1rem;border-radius:18px;border:1px solid rgba(245,158,11,.28);background:linear-gradient(120deg,rgba(245,158,11,.08),hsla(0,0%,100%,.02));text-decoration:none;transition:border-color .22s ease,transform .22s var(--ease),background .22s ease}.sponsor-card.hidden{display:none}.sponsor-card:hover{border-color:rgba(245,158,11,.55);transform:translateY(-2px)}.sponsor-badge{flex:none;padding:.2rem .45rem;border-radius:6px;background:rgba(245,158,11,.16);color:#fbbf24;font-size:.55rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.zen-hint{position:fixed;left:50%;bottom:max(20px,env(safe-area-inset-bottom));z-index:5;transform:translateX(-50%);padding:.5rem 1rem;border-radius:999px;border:1px solid hsla(0,0%,100%,.08);background:rgba(9,9,11,.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-size:.72rem;letter-spacing:.08em;color:#71717a;white-space:nowrap;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .5s ease,visibility 0s linear .5s}body.zen .zen-hint{opacity:1;visibility:visible;transition:opacity .5s ease .3s,visibility 0s linear .3s}.zen-hint.gone{opacity:0!important;visibility:hidden;transition:opacity .6s ease,visibility 0s linear .6s}.consent{position:fixed;left:50%;bottom:18px;z-index:40;transform:translate(-50%,140%);width:min(680px,calc(100vw - 24px));padding:1.1rem 1.25rem;border-radius:22px;border:1px solid hsla(0,0%,100%,.1);background:rgba(13,13,17,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 30px 90px -30px #000;transition:transform .6s var(--ease),opacity .4s ease;opacity:0}.consent.show{transform:translate(-50%);opacity:1}body.zen .consent{opacity:0;pointer-events:none}.lock-veil{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;text-align:center;border-radius:20px;background:rgba(9,9,11,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}body.premium .lock-veil{display:none}.swatch{width:26px;height:26px;border-radius:999px;border:2px solid transparent;background-clip:padding-box;transition:transform .18s var(--ease),border-color .2s ease}.swatch:hover{transform:scale(1.14)}.swatch[aria-pressed=true]{border-color:hsla(0,0%,100%,.85)}.swatch.locked:after{content:"";position:absolute;inset:0;border-radius:999px;background:rgba(9,9,11,.55)}.burst{position:fixed;left:50%;top:50%;width:220px;height:220px;margin:-110px 0 0 -110px;border-radius:999px;border:2px solid rgba(52,211,153,.6);opacity:0;pointer-events:none;z-index:4}.burst.go{animation:burst 1.1s var(--ease) forwards}@keyframes burst{0%{transform:scale(.4);opacity:.85}to{transform:scale(3.4);opacity:0}}.muted .icon-waves{display:none}.muted .icon-off{display:block}.icon-off{display:none}.hist-row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.5rem 0;border-bottom:1px solid hsla(0,0%,100%,.05);font-size:.74rem;color:#71717a}.hist-row:last-child{border-bottom:none}.hist-row .mono{font-family:JetBrains Mono,ui-monospace,monospace;color:#d4d4d8}@media (max-height:720px){:root{--dial:clamp(190px,34vmin,300px);--pad:84px}}@media (max-width:560px){:root{--dial:clamp(196px,62vw,280px);--pad:96px}.btn-primary{min-width:140px;padding:.9rem 1.5rem}}@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}body.running .blob{opacity:.26}}.hover\:border-white\/20:hover{border-color:hsla(0,0%,100%,.2)}.hover\:text-zinc-100:hover{--tw-text-opacity:1;color:rgb(244 244 245/var(--tw-text-opacity,1))}.hover\:text-zinc-300:hover{--tw-text-opacity:1;color:rgb(212 212 216/var(--tw-text-opacity,1))}@media (min-width:640px){.sm\:block{display:block}.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:p-6{padding:1.5rem}.sm\:px-8{padding-left:2rem;padding-right:2rem}}@media (min-width:1024px){.lg\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}}</style>
+</head>
+<body>
+<div class="bg-field" aria-hidden="true">
+  <div class="bg-grid"></div>
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="blob blob-c"></div>
+</div>
+
+<aside class="rail rail-left zen-hide" aria-label="Advertisement">
+  <div class="ad-slot" data-ad-slot="rail-left" data-ad-size="300x600" data-min-h="600">
+    <span class="ad-title">Advertisement</span>
+    <span class="ad-meta">300 &times; 600</span>
+    <div class="lock-veil"><span class="text-[.6rem] uppercase tracking-[.2em] text-amber-500/80">Ad space</span></div>
+  </div>
+</aside>
+
+<aside class="rail rail-right zen-hide" aria-label="Advertisement">
+  <div class="ad-slot" data-ad-slot="rail-right" data-ad-size="300x600" data-min-h="600">
+    <span class="ad-title">Advertisement</span>
+    <span class="ad-meta">300 &times; 600</span>
+    <div class="lock-veil"><span class="text-[.6rem] uppercase tracking-[.2em] text-amber-500/80">Ad space</span></div>
+  </div>
+</aside>
+
+<div class="stage" id="stage">
+  <header class="zone-top zen-hide flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <span class="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent-b)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 2"></path><path d="M9 2h6"></path>
+        </svg>
+      </span>
+      <div class="leading-tight">
+        <p class="text-sm font-semibold tracking-tight text-zinc-100">Online Timer</p>
+        <p class="text-[.7rem] text-zinc-500">Countdown &middot; deep work &middot; zero noise</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="btnPremium" type="button" class="btn btn-gold text-[.75rem]">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2 4 6v6c0 5 3.4 9.2 8 10 4.6-.8 8-5 8-10V6l-8-4Z"></path>
+        </svg>
+        <span id="premiumLabel">Remove ads</span>
+      </button>
+      <button id="btnZen" type="button" aria-pressed="false" class="btn btn-ghost text-sm">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path>
+          <path d="M8 21H5a2 2 0 0 1-2-2v-3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path>
+        </svg>
+        <span id="zenLabel">Distraction&#8209;free</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="zone-mid" id="zoneMid">
+    <div class="dial">
+      <svg class="ring" viewBox="0 0 320 320" aria-hidden="true">
+        <defs>
+          <linearGradient id="ringGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop id="stopA" offset="0%" stop-color="#22d3ee"></stop>
+            <stop id="stopB" offset="48%" stop-color="#818cf8"></stop>
+            <stop id="stopC" offset="100%" stop-color="#e879f9"></stop>
+          </linearGradient>
+          <filter id="ringGlow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="6" result="blur"></feGaussianBlur>
+            <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+          </filter>
+        </defs>
+        <circle class="ring-track" cx="160" cy="160" r="146"></circle>
+        <circle class="ring-progress" id="ring" cx="160" cy="160" r="146"></circle>
+      </svg>
+      <div class="dial-center">
+        <span class="status-pill"><span class="status-dot"></span><span id="stateLabel">Ready</span></span>
+        <div class="clock" id="clock" role="timer" aria-live="off">05:00</div>
+        <div class="clock-sub" id="clockSub">of 05:00</div>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center gap-5">
+      <div class="flex flex-wrap items-center justify-center gap-2" id="presets" role="group" aria-label="Quick presets"></div>
+      <div class="flex items-center justify-center gap-3">
+        <button id="btnStart" type="button" class="btn btn-primary" aria-label="Start timer">Start</button>
+        <button id="btnReset" type="button" class="btn btn-ghost" aria-label="Reset timer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path d="M3 3v5h5"></path>
+          </svg>
+          Reset
+        </button>
+      </div>
+      <p class="text-[.7rem] text-zinc-600 hidden sm:block">Space start / pause &nbsp;&middot;&nbsp; R reset &nbsp;&middot;&nbsp; D focus mode</p>
+    </div>
+  </main>
+
+  <section class="zone-bot zen-hide flex flex-col gap-4">
+    <div class="panel p-5 sm:p-6">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <span class="field-label">Custom duration</span>
+          <div class="grid grid-cols-3 gap-2">
+            <div>
+              <input id="inHours" class="num-input" type="number" inputmode="numeric" min="0" max="99" value="0" aria-label="Hours">
+              <span class="mt-1.5 block text-center text-[.6rem] uppercase tracking-[.18em] text-zinc-600">Hours</span>
+            </div>
+            <div>
+              <input id="inMinutes" class="num-input" type="number" inputmode="numeric" min="0" max="59" value="5" aria-label="Minutes">
+              <span class="mt-1.5 block text-center text-[.6rem] uppercase tracking-[.18em] text-zinc-600">Minutes</span>
+            </div>
+            <div>
+              <input id="inSeconds" class="num-input" type="number" inputmode="numeric" min="0" max="59" value="0" aria-label="Seconds">
+              <span class="mt-1.5 block text-center text-[.6rem] uppercase tracking-[.18em] text-zinc-600">Seconds</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label" for="selSound">Background sound</label>
+          <select id="selSound" class="sel">
+            <option value="none">Off</option>
+            <option value="pink" selected>Pink noise</option>
+            <option value="brown">Brown noise</option>
+            <option value="rain">Soft rain</option>
+            <option value="ocean">Ocean waves</option>
+          </select>
+          <p class="mt-2 text-[.68rem] leading-relaxed text-zinc-600">Synthesized live in your browser while the clock ticks.</p>
+        </div>
+
+        <div>
+          <label class="field-label" for="selAlert">Ending alert</label>
+          <select id="selAlert" class="sel">
+            <option value="chime" selected>Gentle chime cascade</option>
+            <option value="synth">Retro synth wave</option>
+            <option value="beep">Modern alert beep</option>
+            <option value="bell">Crystal bell</option>
+          </select>
+          <div class="mt-3 flex items-center gap-3">
+            <button id="btnTest" type="button" class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[.72rem] font-medium text-zinc-400 transition hover:border-white/20 hover:text-zinc-100">Preview</button>
+            <button id="btnMute" type="button" class="btn btn-ghost !px-3 !py-1.5 text-[.72rem]" aria-pressed="false" aria-label="Mute audio">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M11 5 6 9H2v6h4l5 4z"></path>
+                <g class="icon-waves"><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></g>
+                <g class="icon-off"><path d="M17 9l4 6"></path><path d="M21 9l-4 6"></path></g>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label" for="rngVolume">Volume</label>
+          <div class="flex items-center gap-3 pt-2">
+            <input id="rngVolume" class="rng" type="range" min="0" max="100" value="55" aria-label="Volume">
+            <span id="volLabel" class="w-9 shrink-0 text-right font-mono text-xs text-zinc-500">55</span>
+          </div>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="field-label !mb-0">Accent</span>
+            <div class="flex items-center gap-2" id="swatches" role="group" aria-label="Accent theme"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a id="sponsorCard" class="sponsor-card zen-hide" href="#" target="_blank" rel="nofollow sponsored noopener">
+      <span class="sponsor-badge">Sponsored</span>
+      <span class="min-w-0 flex-1">
+        <span class="block text-[.8rem] font-medium text-zinc-100" id="sponsorTitle">Deep work, handled.</span>
+        <span class="block text-[.7rem] text-zinc-500" id="sponsorBody">A distraction-free workspace that pairs with this timer.</span>
+      </span>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#a1a1aa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+    </a>
+
+    <div class="panel p-4">
+      <p class="mb-2.5 text-[.66rem] font-semibold uppercase tracking-[.18em] text-zinc-600">Related tools</p>
+      <div class="flex flex-wrap gap-2">
+        <a href="/7-minute-timer/" class="chip !no-underline">7 Minute Workout Timer</a>
+        <a href="/7-minute-timer/#workout" class="chip !no-underline">12-Exercise Circuit</a>
+        <a href="/pomodoro-technique/" class="chip !no-underline">Pomodoro Guide</a>
+        <a href="/sleep-timer/" class="chip !no-underline">Sleep Timer</a>
+      </div>
+    </div>
+
+    <div class="ad-slot" data-ad-slot="footer" data-ad-size="728x90" data-min-h="100" style="min-height:100px">
+      <span class="ad-title">Advertisement</span>
+      <span class="ad-meta">728 &times; 90 responsive</span>
+      <div class="lock-veil"><span class="text-[.6rem] uppercase tracking-[.2em] text-amber-500/80">Ad space</span></div>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-3 px-1 pb-1 text-[.72rem] text-zinc-500">
+      <span>Sessions completed today: <span id="trackerCount" class="font-semibold text-zinc-200">0</span></span>
+      <span class="flex items-center gap-3">
+        <span id="trackerMeta" class="text-zinc-600">No sessions logged in this tab yet.</span>
+        <button id="btnHistory" type="button" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[.7rem] text-zinc-400 transition hover:border-white/20 hover:text-zinc-100">History</button>
+      </span>
+    </div>
+  </section>
+</div>
+
+<div id="historyPanel" class="hidden panel zen-hide mx-auto w-full max-w-lg p-5">
+  <div class="mb-3 flex items-center justify-between">
+    <p class="field-label !mb-0">Session history</p>
+    <div class="flex items-center gap-2">
+      <button id="btnExport" type="button" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[.7rem] text-zinc-400 transition hover:border-white/20 hover:text-zinc-100">Export CSV</button>
+      <button id="btnHistoryClose" type="button" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[.7rem] text-zinc-400 transition hover:border-white/20 hover:text-zinc-100">Close</button>
+    </div>
+  </div>
+  <div id="historyBody" class="max-h-64 overflow-y-auto"></div>
+</div>
+
+<div class="consent" id="consent" role="dialog" aria-live="polite" aria-label="Cookie preferences">
+  <p class="text-[.8rem] leading-relaxed text-zinc-300">
+    We use cookies and advertising partners to keep this timer free. You can decline and keep using the tool.
+  </p>
+  <div class="mt-3.5 flex flex-wrap items-center gap-2">
+    <button id="btnConsentAccept" type="button" class="btn btn-gold !px-4 !py-2 text-[.75rem]">Accept</button>
+    <button id="btnConsentDecline" type="button" class="btn btn-ghost !px-4 !py-2 text-[.75rem]">Decline</button>
+    <a href="#privacy" id="btnConsentPolicy" class="ml-auto text-[.7rem] text-zinc-500 underline underline-offset-2 transition hover:text-zinc-300">Privacy policy</a>
+  </div>
+</div>
+
+<div class="burst" id="burst" aria-hidden="true"></div>
+<p class="zen-hint" id="zenHint">Press <span class="font-mono text-zinc-400">D</span> or <span class="font-mono text-zinc-400">Esc</span> to exit focus mode</p>
+<div class="sr-only" id="live" aria-live="polite" role="status"></div>
+
+<noscript><p style="padding:24px;text-align:center;color:#a1a1aa">This timer needs JavaScript enabled to run.</p></noscript>
+
+<script>
+(function () {
+  'use strict';
+
+  var CIRC = 2 * Math.PI * 146;
+  var MAX_SECONDS = 99 * 3600 + 59 * 60 + 59;
+  var PRESETS = [
+    { label: '1 Min', seconds: 60 },
+    { label: '3 Min', seconds: 180 },
+    { label: '5 Min', seconds: 300 },
+    { label: '7 Min', seconds: 420 },
+    { label: '10 Min', seconds: 600 },
+    { label: '15 Min', seconds: 900 },
+    { label: '25 Min', seconds: 1500 },
+    { label: '45 Min', seconds: 2700 }
+  ];
+
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
+  function pad2(n) { return n < 10 ? '0' + n : String(n); }
+
+  var STORE = {
+    get: function (key, fallback) {
+      try {
+        var raw = window.localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (err) { return fallback; }
+    },
+    set: function (key, value) {
+      try { window.localStorage.setItem(key, JSON.stringify(value)); } catch (err) { }
+    }
+  };
+
+  var MONETIZE = {
+    enabled: false,
+    provider: 'adsense',
+    client: 'ca-pub-0000000000000000',
+    slots: {
+      'rail-left': '0000000000',
+      'rail-right': '1111111111',
+      'footer': '2222222222'
+    },
+    refreshSeconds: 0,
+    lazyViewportMargin: '320px',
+    checkoutUrl: '',
+    supportEmail: '',
+    sponsor: {
+      title: 'Deep work, handled.',
+      body: 'A distraction-free workspace that pairs with this timer.',
+      url: '#',
+      enabled: true
+    }
+  };
+
+  var Consent = {
+    key: 'ot.consent.v1',
+    state: 'unknown',
+    load: function () {
+      var saved = STORE.get(this.key, null);
+      if (saved && saved.choice && Date.now() - saved.ts < 180 * 86400000) {
+        this.state = saved.choice;
+      }
+      return this.state;
+    },
+    grant: function (choice) {
+      this.state = choice;
+      STORE.set(this.key, { choice: choice, ts: Date.now() });
+    },
+    decided: function () { return this.state === 'granted' || this.state === 'denied'; }
+  };
+
+  var Premium = {
+    key: 'ot.premium.v1',
+    data: null,
+    load: function () {
+      this.data = STORE.get(this.key, null);
+      if (this.data && this.data.until && this.data.until < Date.now()) {
+        this.data = null;
+        STORE.set(this.key, null);
+      }
+      return this.data;
+    },
+    isActive: function () { return !!(this.data && this.data.active); },
+    activate: function (key) {
+      var plan = { active: true, key: key, until: Date.now() + 365 * 86400000, ts: Date.now() };
+      this.data = plan;
+      STORE.set(this.key, plan);
+      return plan;
+    },
+    deactivate: function () {
+      this.data = null;
+      STORE.set(this.key, null);
+    },
+    checksum: function (body) {
+      var h = 2166136261;
+      for (var i = 0; i < body.length; i++) {
+        h ^= body.charCodeAt(i);
+        h = Math.imul(h, 16777619) >>> 0;
+      }
+      var alphabet = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+      var out = '';
+      for (var j = 0; j < 4; j++) { out += alphabet.charAt((h >>> (j * 5)) & 31); }
+      return out;
+    },
+    verify: function (input) {
+      var raw = String(input || '').toUpperCase().replace(/[^0-9A-Z]/g, '');
+      if (raw.length !== 16) { return false; }
+      return this.checksum(raw.slice(0, 12)) === raw.slice(12, 16);
+    },
+    normalize: function (input) {
+      var raw = String(input || '').toUpperCase().replace(/[^0-9A-Z]/g, '');
+      if (raw.length !== 16) { return input; }
+      return raw.slice(0, 4) + '-' + raw.slice(4, 8) + '-' + raw.slice(8, 12) + '-' + raw.slice(12, 16);
+    }
+  };
+
+  var AdEngine = {
+    loaded: false,
+    blocked: false,
+    consent: false,
+    premium: false,
+    refreshing: false,
+    lastRefresh: 0,
+    refreshCount: 0,
+    refreshWindow: 0,
+    observer: null,
+
+    active: function () {
+      if (!MONETIZE.enabled) { return false; }
+      if (this.premium) { return false; }
+      if (this.consent !== true) { return false; }
+      if (MONETIZE.client.indexOf('ca-pub-') !== 0) { return false; }
+      return true;
+    },
+
+    detectBlocker: function (done) {
+      var bait = document.createElement('div');
+      bait.className = 'adsbox pub_300x250 ad-placement';
+      bait.setAttribute('aria-hidden', 'true');
+      bait.style.cssText = 'position:absolute;left:-9999px;top:-9999px;width:12px;height:12px';
+      document.body.appendChild(bait);
+      window.setTimeout(function () {
+        var hidden = bait.offsetHeight === 0 || window.getComputedStyle(bait).display === 'none';
+        if (bait.parentNode) { bait.parentNode.removeChild(bait); }
+        done(hidden);
+      }, 1400);
+    },
+
+    load: function () {
+      if (this.loaded) { return; }
+      if (MONETIZE.provider !== 'adsense' || !MONETIZE.client) { return; }
+      this.loaded = true;
+      var script = document.createElement('script');
+      script.async = true;
+      script.crossOrigin = 'anonymous';
+      script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + MONETIZE.client;
+      script.onerror = function () { AdEngine.loaded = false; };
+      document.head.appendChild(script);
+    },
+
+    fill: function (slotEl) {
+      if (!this.active()) { return; }
+      if (MONETIZE.provider !== 'adsense') { return; }
+      var name = slotEl.getAttribute('data-ad-slot');
+      var unit = MONETIZE.slots[name];
+      if (!unit) { return; }
+      if (slotEl.getAttribute('data-filled') === 'true') { return; }
+
+      var minH = parseInt(slotEl.getAttribute('data-min-h'), 10) || 90;
+      var isVertical = name.indexOf('rail') === 0;
+      var ins = document.createElement('ins');
+      ins.className = 'adsbygoogle ad-frame';
+      ins.style.display = 'block';
+      ins.style.width = isVertical ? '160px' : '100%';
+      ins.style.minHeight = minH + 'px';
+      ins.setAttribute('data-ad-client', MONETIZE.client);
+      ins.setAttribute('data-ad-slot', unit);
+      ins.setAttribute('data-ad-format', isVertical ? 'vertical' : 'horizontal');
+      ins.setAttribute('data-full-width-responsive', isVertical ? 'false' : 'true');
+      ins.setAttribute('data-ad-status', 'unused');
+
+      slotEl.insertBefore(ins, slotEl.firstChild);
+      slotEl.setAttribute('data-filled', 'true');
+      slotEl.classList.add('is-live');
+
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (err) { }
+    },
+
+    observe: function () {
+      var self = this;
+      var slots = document.querySelectorAll('.ad-slot');
+      if (!('IntersectionObserver' in window)) {
+        for (var i = 0; i < slots.length; i++) { this.fill(slots[i]); }
+        return;
+      }
+      this.observer = new IntersectionObserver(function (entries) {
+        for (var j = 0; j < entries.length; j++) {
+          if (!entries[j].isIntersecting) { continue; }
+          self.fill(entries[j].target);
+          self.observer.unobserve(entries[j].target);
+        }
+      }, { rootMargin: MONETIZE.lazyViewportMargin });
+      for (var k = 0; k < slots.length; k++) { this.observer.observe(slots[k]); }
+    },
+
+    refresh: function (reason) {
+      if (!this.active() || this.refreshing) { return; }
+      if (!MONETIZE.refreshSeconds) { return; }
+      var now = Date.now();
+      if (now - this.refreshWindow > 3600000) { this.refreshWindow = now; this.refreshCount = 0; }
+      if (this.refreshCount >= 4) { return; }
+      if (now - this.lastRefresh < MONETIZE.refreshSeconds * 1000) { return; }
+      this.refreshing = true;
+      this.lastRefresh = now;
+      this.refreshCount += 1;
+
+      var ins = document.querySelectorAll('.ad-slot ins.adsbygoogle');
+      for (var i = 0; i < ins.length; i++) {
+        var ad = ins[i];
+        var parent = ad.parentNode;
+        if (!parent) { continue; }
+        try {
+          ad.setAttribute('data-ad-status', 'unused');
+          parent.removeChild(ad);
+          parent.setAttribute('data-filled', 'false');
+          parent.classList.remove('is-live', 'is-filled');
+        } catch (err) { }
+      }
+      window.setTimeout(function () { AdEngine.refreshing = false; }, 900);
+    },
+
+    init: function (consentState, premiumOn) {
+      this.consent = consentState === 'granted';
+      this.premium = premiumOn;
+      if (!this.active()) { return; }
+      this.load();
+      this.observe();
+      this.detectBlocker(function (blocked) {
+        AdEngine.blocked = blocked;
+        document.body.classList.toggle('adblocked', blocked);
+        if (blocked) { AdEngine.promoteSponsor(); }
+      });
+    },
+
+    promoteSponsor: function () {
+      if (!MONETIZE.sponsor.enabled) { return; }
+      var slots = document.querySelectorAll('.ad-slot');
+      for (var i = 0; i < slots.length; i++) {
+        slots[i].setAttribute('data-filled', 'true');
+        slots[i].classList.add('is-live');
+      }
+      var card = $('#sponsorCard');
+      if (card && !document.body.classList.contains('premium')) { card.classList.remove('hidden'); }
+    }
+  };
+
+  var THEMES = [
+    { id: 'aurora', name: 'Aurora', colors: ['#22d3ee', '#818cf8', '#e879f9'], free: true },
+    { id: 'ember', name: 'Ember', colors: ['#fb923c', '#f43f5e', '#a855f7'], free: false },
+    { id: 'lagoon', name: 'Lagoon', colors: ['#a3e635', '#22d3ee', '#4ade80'], free: false },
+    { id: 'graphite', name: 'Graphite', colors: ['#e4e4e7', '#a1a1aa', '#52525b'], free: false }
+  ];
+
+  var History = {
+    key: 'ot.history.v1',
+    items: [],
+    load: function () {
+      this.items = STORE.get(this.key, []) || [];
+    },
+    add: function (seconds) {
+      var d = new Date();
+      this.items.unshift({
+        sec: Math.round(seconds),
+        date: d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()),
+        time: pad2(d.getHours()) + ':' + pad2(d.getMinutes())
+      });
+      if (this.items.length > 50) { this.items.length = 50; }
+      STORE.set(this.key, this.items);
+    },
+    export: function () {
+      if (!this.items.length) { return; }
+      var rows = [['#', 'Date', 'Time', 'Seconds', 'Duration']];
+      for (var i = this.items.length - 1; i >= 0; i--) {
+        var it = this.items[i];
+        rows.push([this.items.length - i, it.date, it.time, it.sec, Time.format(it.sec)]);
+      }
+      var csv = rows.map(function (r) { return r.join(','); }).join('\n');
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.href = url;
+      link.download = 'online-timer-sessions.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+    }
+  };
+
+  var Sound = {
+    ctx: null,
+    master: null,
+    ambient: null,
+    buffers: {},
+    nodes: null,
+    dripTimer: 0,
+    volume: 0.55,
+    muted: false,
+    mode: 'pink',
+    alert: 'chime',
+
+    ensure: function () {
+      if (this.ctx) { return this.ctx; }
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) { return null; }
+      try { this.ctx = new AC(); } catch (err) { this.ctx = null; return null; }
+      this.master = this.ctx.createGain();
+      this.master.gain.value = this.muted ? 0 : this.volume;
+      this.master.connect(this.ctx.destination);
+      this.ambient = this.ctx.createGain();
+      this.ambient.gain.value = 0.0001;
+      this.ambient.connect(this.master);
+      return this.ctx;
+    },
+
+    resume: function () {
+      this.ensure();
+      if (this.ctx && this.ctx.state === 'suspended') { this.ctx.resume(); }
+    },
+
+    setVolume: function (value) {
+      this.volume = clamp(value, 0, 1);
+      if (this.master) { this.master.gain.setTargetAtTime(this.muted ? 0 : this.volume, this.ctx.currentTime, 0.04); }
+    },
+
+    setMuted: function (flag) { this.muted = !!flag; this.setVolume(this.volume); },
+
+    fill: function (data, kind) {
+      var len = data.length;
+      var b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0, brown = 0;
+      for (var i = 0; i < len; i++) {
+        var white = Math.random() * 2 - 1;
+        if (kind === 'white') {
+          data[i] = white * 0.3;
+        } else if (kind === 'brown') {
+          brown = (brown + 0.02 * white) / 1.02;
+          data[i] = brown * 3.4;
+        } else {
+          b0 = 0.99886 * b0 + white * 0.0555179;
+          b1 = 0.99332 * b1 + white * 0.0750759;
+          b2 = 0.969 * b2 + white * 0.153852;
+          b3 = 0.8665 * b3 + white * 0.3104856;
+          b4 = 0.55 * b4 + white * 0.5329522;
+          b5 = -0.7616 * b5 - white * 0.016898;
+          data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.105;
+          b6 = white * 0.115926;
+        }
+      }
+      var fade = Math.floor(len * 0.06);
+      for (var j = 0; j < fade; j++) {
+        var k = j / fade;
+        var tail = len - fade + j;
+        data[tail] = data[tail] * (1 - k) + data[j] * k;
+      }
+    },
+
+    buffer: function (kind) {
+      if (this.buffers[kind]) { return this.buffers[kind]; }
+      var ctx = this.ctx;
+      var length = Math.floor(ctx.sampleRate * 6);
+      var buffer = ctx.createBuffer(2, length, ctx.sampleRate);
+      for (var c = 0; c < 2; c++) { this.fill(buffer.getChannelData(c), kind); }
+      this.buffers[kind] = buffer;
+      return buffer;
+    },
+
+    start: function () {
+      this.resume();
+      var ctx = this.ctx;
+      if (!ctx || this.mode === 'none') { return; }
+      this.stop(true);
+      var source = ctx.createBufferSource();
+      var kind = this.mode === 'rain' ? 'white' : this.mode === 'brown' ? 'brown' : 'pink';
+      source.buffer = this.buffer(kind);
+      source.loop = true;
+
+      var filter = ctx.createBiquadFilter();
+      var head = source;
+      var gain = ctx.createGain();
+      var nodes = [source, filter, gain];
+      var oscs = [];
+
+      if (this.mode === 'pink') {
+        filter.type = 'lowpass'; filter.frequency.value = 7600; filter.Q.value = 0.4; gain.gain.value = 0.75;
+      } else if (this.mode === 'brown') {
+        filter.type = 'lowpass'; filter.frequency.value = 440; filter.Q.value = 0.8; gain.gain.value = 1.15;
+      } else if (this.mode === 'rain') {
+        var high = ctx.createBiquadFilter();
+        high.type = 'highpass'; high.frequency.value = 360; high.Q.value = 0.7;
+        filter.type = 'bandpass'; filter.frequency.value = 1550; filter.Q.value = 0.45;
+        gain.gain.value = 0.6;
+        head.connect(high); head = high; nodes.push(high);
+      } else {
+        filter.type = 'lowpass'; filter.frequency.value = 900; filter.Q.value = 0.7; gain.gain.value = 0.9;
+      }
+
+      if (this.mode === 'ocean') {
+        var sweep = ctx.createOscillator();
+        var sweepAmt = ctx.createGain();
+        sweep.frequency.value = 0.085;
+        sweepAmt.gain.value = 620;
+        sweep.connect(sweepAmt); sweepAmt.connect(filter.frequency);
+        sweep.start(); oscs.push(sweep);
+      }
+      if (this.mode === 'rain') {
+        var gust = ctx.createOscillator();
+        var gustAmt = ctx.createGain();
+        gust.frequency.value = 0.16;
+        gustAmt.gain.value = 0.16;
+        gust.connect(gustAmt); gustAmt.connect(gain.gain);
+        gust.start(); oscs.push(gust);
+      }
+
+      head.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.ambient);
+      source.start();
+      this.nodes = nodes.concat(oscs);
+
+      var t = ctx.currentTime;
+      this.ambient.gain.cancelScheduledValues(t);
+      this.ambient.gain.setValueAtTime(this.ambient.gain.value, t);
+      this.ambient.gain.linearRampToValueAtTime(1, t + 1.5);
+      this.scheduleDrip();
+    },
+
+    scheduleDrip: function () {
+      var self = this;
+      window.clearTimeout(this.dripTimer);
+      if (this.mode !== 'rain' || !this.ctx) { return; }
+      this.dripTimer = window.setTimeout(function () { self.drop(); self.scheduleDrip(); }, 160 + Math.random() * 900);
+    },
+
+    drop: function () {
+      var ctx = this.ctx;
+      if (!ctx) { return; }
+      var t = ctx.currentTime;
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      var start = 900 + Math.random() * 1700;
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(start, t);
+      osc.frequency.exponentialRampToValueAtTime(start * 0.55, t + 0.09);
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.05 + Math.random() * 0.05, t + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.15);
+      osc.connect(gain); gain.connect(this.ambient);
+      osc.start(t); osc.stop(t + 0.2);
+    },
+
+    stop: function (instant) {
+      window.clearTimeout(this.dripTimer);
+      this.dripTimer = 0;
+      var nodes = this.nodes;
+      this.nodes = null;
+      if (!this.ctx || !nodes) { return; }
+      var fade = instant ? 0.08 : 0.8;
+      var t = this.ctx.currentTime;
+      this.ambient.gain.cancelScheduledValues(t);
+      this.ambient.gain.setValueAtTime(this.ambient.gain.value, t);
+      this.ambient.gain.linearRampToValueAtTime(0.0001, t + fade);
+      window.setTimeout(function () {
+        for (var i = 0; i < nodes.length; i++) {
+          var node = nodes[i];
+          try { if (typeof node.stop === 'function') { node.stop(); } } catch (err) { }
+          try { node.disconnect(); } catch (err2) { }
+        }
+      }, fade * 1000 + 80);
+    },
+
+    tone: function (type, freq, at, peak, decay) {
+      var ctx = this.ctx;
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, at);
+      gain.gain.setValueAtTime(0.0001, at);
+      gain.gain.exponentialRampToValueAtTime(peak, at + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, at + decay);
+      osc.connect(gain); gain.connect(this.master);
+      osc.start(at); osc.stop(at + decay + 0.06);
+    },
+
+    playAlert: function () {
+      this.resume();
+      if (!this.ctx) { return; }
+      var t = this.ctx.currentTime + 0.03;
+      if (this.alert === 'chime') { this.chime(t); }
+      else if (this.alert === 'synth') { this.synth(t); }
+      else if (this.alert === 'beep') { this.beep(t); }
+      else { this.bell(t); }
+    },
+
+    chime: function (t) {
+      var notes = [523.25, 659.25, 783.99, 1046.5, 1318.51];
+      for (var i = 0; i < notes.length; i++) {
+        var at = t + i * 0.15;
+        this.tone('sine', notes[i], at, 0.2, 1.6);
+        this.tone('sine', notes[i] * 2.005, at, 0.05, 0.8);
+        this.tone('sine', notes[i] * 0.5, at, 0.06, 1.9);
+      }
+    },
+
+    synth: function (t) {
+      var ctx = this.ctx;
+      var seq = [261.63, 329.63, 392.0, 523.25];
+      var osc = ctx.createOscillator();
+      var sub = ctx.createOscillator();
+      var filter = ctx.createBiquadFilter();
+      var gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      sub.type = 'square';
+      osc.frequency.setValueAtTime(seq[0], t);
+      sub.frequency.setValueAtTime(seq[0] * 0.5, t);
+      for (var i = 0; i < seq.length; i++) {
+        osc.frequency.setValueAtTime(seq[i], t + i * 0.14);
+        sub.frequency.setValueAtTime(seq[i] * 0.5, t + i * 0.14);
+      }
+      osc.frequency.exponentialRampToValueAtTime(seq[0] * 0.5, t + 1.05);
+      filter.type = 'lowpass';
+      filter.Q.value = 7;
+      filter.frequency.setValueAtTime(5400, t);
+      filter.frequency.exponentialRampToValueAtTime(380, t + 1.05);
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.19, t + 0.03);
+      gain.gain.setValueAtTime(0.19, t + 0.68);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 1.15);
+      osc.connect(filter); sub.connect(filter);
+      filter.connect(gain); gain.connect(this.master);
+      osc.start(t); sub.start(t);
+      osc.stop(t + 1.25); sub.stop(t + 1.25);
+    },
+
+    beep: function (t) {
+      for (var i = 0; i < 3; i++) {
+        var at = t + i * 0.19;
+        this.tone('square', 920, at, 0.16, 0.13);
+        this.tone('sine', 1840, at, 0.05, 0.1);
+      }
+    },
+
+    bell: function (t) {
+      var ctx = this.ctx;
+      var carrier = ctx.createOscillator();
+      var mod = ctx.createOscillator();
+      var modAmt = ctx.createGain();
+      var gain = ctx.createGain();
+      carrier.type = 'sine'; mod.type = 'sine';
+      carrier.frequency.setValueAtTime(660, t);
+      mod.frequency.setValueAtTime(660 * 1.414, t);
+      modAmt.gain.setValueAtTime(1400, t);
+      modAmt.gain.exponentialRampToValueAtTime(20, t + 1.1);
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.22, t + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 1.9);
+      mod.connect(modAmt); modAmt.connect(carrier.frequency);
+      carrier.connect(gain); gain.connect(this.master);
+      carrier.start(t); mod.start(t);
+      carrier.stop(t + 2); mod.stop(t + 2);
+    }
+  };
+
+  var Time = {
+    format: function (seconds, forceHours) {
+      var total = Math.max(0, Math.floor(seconds));
+      var h = Math.floor(total / 3600);
+      var m = Math.floor((total % 3600) / 60);
+      var s = total % 60;
+      if (forceHours || h > 0) { return h + ':' + pad2(m) + ':' + pad2(s); }
+      return pad2(m) + ':' + pad2(s);
+    },
+    stamp: function (seconds) {
+      var total = Math.max(0, Math.round(seconds));
+      var h = Math.floor(total / 3600);
+      var m = Math.floor((total % 3600) / 60);
+      var s = total % 60;
+      var out = '';
+      if (h) { out += h + 'h'; }
+      if (h || m) { out += m + 'm'; }
+      if (s || (!h && !m)) { out += s + 's'; }
+      return out;
+    },
+    parse: function (raw) {
+      if (!raw) { return null; }
+      var str = String(raw).replace(/^#+/, '').trim().toLowerCase().replace(/\s+/g, '');
+      if (!str) { return null; }
+      if (/^\d{1,3}:\d{1,2}(:\d{1,2})?$/.test(str)) {
+        var parts = str.split(':').map(Number);
+        var clock = parts.length === 2 ? parts[0] * 60 + parts[1] : parts[0] * 3600 + parts[1] * 60 + parts[2];
+        return clock > 0 ? clock : null;
+      }
+      var cleaned = str.replace(/[^0-9hms.]/g, '');
+      var re = /(\d+(?:\.\d+)?)(h|m|s)?/g;
+      var total = 0;
+      var found = false;
+      var match;
+      while ((match = re.exec(cleaned)) !== null) {
+        var unit = match[2];
+        var factor = unit === 'h' ? 3600 : unit === 's' ? 1 : 60;
+        total += Math.round(parseFloat(match[1]) * factor);
+        found = true;
+      }
+      if (!found || total <= 0) { return null; }
+      return clamp(total, 0, MAX_SECONDS);
+    }
+  };
+
+  var Tracker = {
+    key: 'ot.sessions.v1',
+    data: { date: '', count: 0, seconds: 0, last: 0 },
+    today: function () {
+      var d = new Date();
+      return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+    },
+    load: function () {
+      var saved = STORE.get(this.key, null);
+      if (saved && saved.date === this.today()) {
+        this.data = { date: saved.date, count: saved.count || 0, seconds: saved.seconds || 0, last: saved.last || 0 };
+      }
+    },
+    add: function (seconds) {
+      this.data.date = this.today();
+      this.data.count += 1;
+      this.data.seconds += Math.round(seconds);
+      this.data.last = Date.now();
+      STORE.set(this.key, this.data);
+      this.render();
+    },
+    render: function () {
+      var countEl = $('#trackerCount');
+      var metaEl = $('#trackerMeta');
+      if (!countEl || !metaEl) { return; }
+      countEl.textContent = String(this.data.count);
+      if (!this.data.count) {
+        metaEl.textContent = 'No sessions logged in this tab yet.';
+        return;
+      }
+      var focus = this.data.seconds >= 3600
+        ? Math.floor(this.data.seconds / 3600) + 'h ' + Math.round((this.data.seconds % 3600) / 60) + 'm'
+        : Math.max(1, Math.round(this.data.seconds / 60)) + 'm';
+      var when = new Date(this.data.last);
+      metaEl.textContent = 'Total focus ' + focus + ' · last ended ' + pad2(when.getHours()) + ':' + pad2(when.getMinutes());
+    }
+  };
+
+  var state = { duration: 300, remaining: 300, running: false, completed: false, endAt: 0, raf: 0 };
+  var el = {};
+  var lastText = '';
+  var lastOffset = -1;
+  var zenTimer = 0;
+  var audioArmed = false;
+
+  function announce(message) {
+    var live = $('#live');
+    if (live) { live.textContent = message; }
+  }
+
+  function render() {
+    var ratio = state.duration > 0 ? clamp(state.remaining / state.duration, 0, 1) : 0;
+    var showHours = Math.floor(state.duration / 3600) > 0;
+    var label = Time.format(Math.max(0, Math.ceil(state.remaining - 0.0001)), showHours);
+
+    if (label !== lastText) {
+      lastText = label;
+      el.clock.textContent = '';
+      var chars = label.split('');
+      for (var i = 0; i < chars.length; i++) {
+        var piece = document.createElement('span');
+        piece.textContent = chars[i];
+        if (chars[i] === ':') { piece.className = 'sep'; }
+        el.clock.appendChild(piece);
+      }
+      document.title = (state.running ? label + ' · ' : '') + 'Online Timer';
+    }
+
+    el.clockSub.textContent = state.completed ? 'session complete' : 'of ' + Time.format(state.duration, showHours);
+    el.clock.classList.toggle('with-hours', showHours);
+
+    var offset = CIRC * (1 - ratio);
+    if (Math.abs(offset - lastOffset) > 0.25) {
+      lastOffset = offset;
+      el.ring.style.strokeDashoffset = String(offset);
+    }
+    el.start.disabled = state.duration <= 0;
+    syncPresets();
+  }
+
+  function syncInputs() {
+    el.hours.value = String(Math.floor(state.duration / 3600));
+    el.minutes.value = String(Math.floor((state.duration % 3600) / 60));
+    el.seconds.value = String(state.duration % 60);
+  }
+
+  function syncHash() {
+    var tag = Time.stamp(state.duration);
+    if (tag && window.location.hash !== '#' + tag) {
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', '#' + tag);
+      } else {
+        window.location.hash = tag;
+      }
+    }
+  }
+
+  function setDuration(seconds, options) {
+    var opts = options || {};
+    state.duration = clamp(Math.round(seconds) || 0, 0, MAX_SECONDS);
+    if (!state.running) {
+      state.remaining = state.duration;
+      state.completed = false;
+    }
+    if (!opts.fromInput) { syncInputs(); }
+    if (!opts.silent) { syncHash(); }
+    el.start.textContent = state.running ? 'Pause' : (state.remaining <= 0 && state.duration > 0 ? 'Restart' : 'Start');
+    render();
+  }
+
+  function syncPresets() {
+    for (var i = 0; i < PRESETS.length; i++) {
+      PRESETS[i].el.setAttribute('aria-pressed', PRESETS[i].seconds === state.duration ? 'true' : 'false');
+    }
+  }
+
+  function buildPresets() {
+    var host = $('#presets');
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < PRESETS.length; i++) {
+      var preset = PRESETS[i];
+      var chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'chip';
+      chip.textContent = preset.label;
+      chip.setAttribute('aria-pressed', 'false');
+      chip.setAttribute('aria-label', 'Set timer to ' + preset.label);
+      chip.addEventListener('click', function () {
+        Sound.resume();
+        setDuration(preset.seconds);
+        AdEngine.refresh('preset');
+        announce('Timer set to ' + preset.label);
+      });
+      preset.el = chip;
+      frag.appendChild(chip);
+    }
+    host.appendChild(frag);
+  }
+
+  function buildSwatches() {
+    var host = $('#swatches');
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < THEMES.length; i++) {
+      (function (theme) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'swatch relative';
+        btn.style.background = 'linear-gradient(135deg,' + theme.colors[0] + ',' + theme.colors[1] + ' 55%,' + theme.colors[2] + ')';
+        btn.setAttribute('aria-label', theme.name + ' accent' + (theme.free ? '' : ' (premium)'));
+        btn.setAttribute('aria-pressed', 'false');
+        if (!theme.free && !Premium.isActive()) { btn.classList.add('locked'); }
+        btn.addEventListener('click', function () {
+          if (!theme.free && !Premium.isActive()) { openPremium(); return; }
+          applyTheme(theme.id);
+        });
+        theme.el = btn;
+        frag.appendChild(btn);
+      })(THEMES[i]);
+    }
+    host.appendChild(frag);
+  }
+
+  function applyTheme(id) {
+    var theme = null;
+    for (var i = 0; i < THEMES.length; i++) { if (THEMES[i].id === id) { theme = THEMES[i]; } }
+    if (!theme) { return; }
+    if (!theme.free && !Premium.isActive()) { return; }
+    var root = document.documentElement;
+    root.style.setProperty('--accent-a', theme.colors[0]);
+    root.style.setProperty('--accent-b', theme.colors[1]);
+    root.style.setProperty('--accent-c', theme.colors[2]);
+    $('#stopA').setAttribute('stop-color', theme.colors[0]);
+    $('#stopB').setAttribute('stop-color', theme.colors[1]);
+    $('#stopC').setAttribute('stop-color', theme.colors[2]);
+    for (var j = 0; j < THEMES.length; j++) {
+      THEMES[j].el.setAttribute('aria-pressed', THEMES[j].id === id ? 'true' : 'false');
+    }
+    STORE.set('ot.theme.v1', id);
+  }
+
+  function unlockThemes() {
+    for (var i = 0; i < THEMES.length; i++) { THEMES[i].el.classList.remove('locked'); }
+  }
+
+  function applyHash() {
+    var parsed = Time.parse(window.location.hash);
+    if (parsed) { setDuration(parsed); }
+    syncInputs();
+  }
+
+  function setBodyState() {
+    document.body.classList.toggle('running', state.running);
+    document.body.classList.toggle('complete', state.completed && !state.running);
+    el.hours.disabled = state.running;
+    el.minutes.disabled = state.running;
+    el.seconds.disabled = state.running;
+  }
+
+  function frame() {
+    state.raf = window.requestAnimationFrame(frame);
+    var left = (state.endAt - Date.now()) / 1000;
+    if (left <= 0) {
+      state.remaining = 0;
+      render();
+      complete();
+      return;
+    }
+    state.remaining = left;
+    render();
+  }
+
+  function start() {
+    if (state.duration <= 0) { return; }
+    if (state.remaining <= 0) { state.remaining = state.duration; }
+    state.completed = false;
+    state.endAt = Date.now() + state.remaining * 1000;
+    state.running = true;
+    Sound.resume();
+    if (Sound.mode !== 'none') { Sound.start(); }
+    el.stateLabel.textContent = 'Focus';
+    el.start.textContent = 'Pause';
+    el.start.setAttribute('aria-label', 'Pause timer');
+    setBodyState();
+    window.cancelAnimationFrame(state.raf);
+    frame();
+    render();
+    announce('Timer started');
+  }
+
+  function pause() {
+    if (!state.running) { return; }
+    var left = (state.endAt - Date.now()) / 1000;
+    state.remaining = left > 0 ? left : 0;
+    state.running = false;
+    window.cancelAnimationFrame(state.raf);
+    Sound.stop();
+    el.stateLabel.textContent = 'Paused';
+    el.start.textContent = 'Resume';
+    el.start.setAttribute('aria-label', 'Resume timer');
+    setBodyState();
+    render();
+    announce('Timer paused');
+  }
+
+  function reset() {
+    state.running = false;
+    state.completed = false;
+    window.cancelAnimationFrame(state.raf);
+    Sound.stop();
+    state.remaining = state.duration;
+    el.stateLabel.textContent = 'Ready';
+    el.start.textContent = 'Start';
+    el.start.setAttribute('aria-label', 'Start timer');
+    setBodyState();
+    render();
+    announce('Timer reset');
+  }
+
+  function complete() {
+    state.running = false;
+    state.completed = true;
+    state.remaining = 0;
+    window.cancelAnimationFrame(state.raf);
+    Sound.stop(true);
+    Sound.playAlert();
+    var burst = $('#burst');
+    if (burst) {
+      burst.classList.remove('go');
+      void burst.offsetWidth;
+      burst.classList.add('go');
+    }
+    el.stateLabel.textContent = 'Complete';
+    el.start.textContent = 'Restart';
+    el.start.setAttribute('aria-label', 'Restart timer');
+    setBodyState();
+    Tracker.add(state.duration);
+    History.add(state.duration);
+    AdEngine.refresh('complete');
+    render();
+    announce('Time is up. Session complete.');
+  }
+
+  function toggle() {
+    if (state.running) { pause(); } else { start(); }
+  }
+
+  function readInputs() {
+    var h = clamp(parseInt(el.hours.value, 10) || 0, 0, 99);
+    var m = clamp(parseInt(el.minutes.value, 10) || 0, 0, 59);
+    var s = clamp(parseInt(el.seconds.value, 10) || 0, 0, 59);
+    return h * 3600 + m * 60 + s;
+  }
+
+  function toggleZen(force) {
+    var next = typeof force === 'boolean' ? force : !document.body.classList.contains('zen');
+    document.body.classList.toggle('zen', next);
+    el.btnZen.setAttribute('aria-pressed', next ? 'true' : 'false');
+    $('#zenLabel').textContent = next ? 'Exit focus mode' : 'Distraction-free';
+    var hint = $('#zenHint');
+    window.clearTimeout(zenTimer);
+    if (next) {
+      hint.classList.remove('gone');
+      zenTimer = window.setTimeout(function () { hint.classList.add('gone'); }, 3800);
+    } else {
+      hint.classList.add('gone');
+    }
+  }
+
+  function openPremium() {
+    var key = window.prompt('Paste your license key to activate Focus Pro.\n\nOrder: ' + (MONETIZE.checkoutUrl || 'checkout link not configured yet'));
+    if (!key) { return; }
+    var normalized = Premium.normalize(key);
+    if (Premium.verify(normalized)) {
+      Premium.activate(normalized);
+      onPremiumChange();
+      window.alert('Focus Pro activated. Ads are off.');
+    } else {
+      window.alert('That key is not valid. Check it and try again.');
+    }
+  }
+
+  function onPremiumChange() {
+    var on = Premium.isActive();
+    document.body.classList.toggle('premium', on);
+    AdEngine.premium = on;
+    $('#premiumLabel').textContent = on ? 'Pro active' : 'Remove ads';
+    if (on) {
+      unlockThemes();
+      if (AdEngine.observer) { AdEngine.observer.disconnect(); }
+      var ins = document.querySelectorAll('.ad-slot ins.adsbygoogle');
+      for (var i = 0; i < ins.length; i++) {
+        if (ins[i].parentNode) { ins[i].parentNode.removeChild(ins[i]); }
+      }
+      var slots = document.querySelectorAll('.ad-slot');
+      for (var j = 0; j < slots.length; j++) {
+        slots[j].setAttribute('data-filled', 'false');
+        slots[j].classList.remove('is-live', 'is-filled');
+      }
+    }
+  }
+
+  function renderHistory() {
+    var body = $('#historyBody');
+    if (!body) { return; }
+    if (!Premium.isActive()) {
+      body.innerHTML = '<p class="py-6 text-center text-[.75rem] text-zinc-500">Session history is a Focus Pro feature.</p>';
+      return;
+    }
+    if (!History.items.length) {
+      body.innerHTML = '<p class="py-6 text-center text-[.75rem] text-zinc-500">No sessions recorded yet.</p>';
+      return;
+    }
+    var html = '';
+    for (var i = 0; i < History.items.length && i < 25; i++) {
+      var it = History.items[i];
+      html += '<div class="hist-row"><span class="mono">' + it.time + '</span><span class="flex-1 truncate px-2 text-zinc-600">' + it.date + '</span><span class="mono">' + Time.format(it.sec) + '</span></div>';
+    }
+    body.innerHTML = html;
+  }
+
+  function initConsent() {
+    var banner = $('#consent');
+    var stored = Consent.load();
+
+    if (stored === 'granted') { AdEngine.init('granted', Premium.isActive()); return; }
+    if (stored === 'denied') { AdEngine.init('denied', Premium.isActive()); return; }
+
+    window.setTimeout(function () { banner.classList.add('show'); }, 900);
+
+    $('#btnConsentAccept').addEventListener('click', function () {
+      Consent.grant('granted');
+      banner.classList.remove('show');
+      AdEngine.init('granted', Premium.isActive());
+    });
+    $('#btnConsentDecline').addEventListener('click', function () {
+      Consent.grant('denied');
+      banner.classList.remove('show');
+      AdEngine.init('denied', Premium.isActive());
+    });
+  }
+
+  function isTyping(target) {
+    if (!target || !target.tagName) { return false; }
+    var tag = target.tagName.toLowerCase();
+    return tag === 'input' || tag === 'textarea' || tag === 'select' || target.isContentEditable;
+  }
+
+  function init() {
+    el.clock = $('#clock');
+    el.clockSub = $('#clockSub');
+    el.ring = $('#ring');
+    el.stateLabel = $('#stateLabel');
+    el.start = $('#btnStart');
+    el.hours = $('#inHours');
+    el.minutes = $('#inMinutes');
+    el.seconds = $('#inSeconds');
+    el.btnZen = $('#btnZen');
+
+    el.ring.style.strokeDasharray = String(CIRC);
+    el.ring.style.strokeDashoffset = '0';
+
+    Premium.load();
+    History.load();
+    Tracker.load();
+    Tracker.render();
+
+    buildPresets();
+    buildSwatches();
+    applyTheme(STORE.get('ot.theme.v1', 'aurora'));
+    onPremiumChange();
+    renderHistory();
+
+    var initial = Time.parse(window.location.hash);
+    setDuration(initial || 300);
+    if (!initial) { syncHash(); }
+
+    if (MONETIZE.sponsor.enabled) {
+      var card = $('#sponsorCard');
+      card.href = MONETIZE.sponsor.url;
+      $('#sponsorTitle').textContent = MONETIZE.sponsor.title;
+      $('#sponsorBody').textContent = MONETIZE.sponsor.body;
+      card.classList.remove('hidden');
+    } else {
+      $('#sponsorCard').classList.add('hidden');
+    }
+
+    el.start.addEventListener('click', toggle);
+    $('#btnReset').addEventListener('click', reset);
+    el.btnZen.addEventListener('click', function () { toggleZen(); });
+    $('#btnPremium').addEventListener('click', openPremium);
+
+    var inputs = [el.hours, el.minutes, el.seconds];
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].addEventListener('input', function () {
+        if (state.running) { return; }
+        setDuration(readInputs(), { fromInput: true, silent: true });
+      });
+      inputs[i].addEventListener('blur', function () {
+        if (state.running) { return; }
+        setDuration(readInputs());
+      });
+      inputs[i].addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') { setDuration(readInputs()); }
+      });
+    }
+
+    $('#selSound').addEventListener('change', function (event) {
+      Sound.mode = event.target.value;
+      Sound.resume();
+      if (state.running && Sound.mode !== 'none') { Sound.start(); } else { Sound.stop(); }
+    });
+
+    $('#selAlert').addEventListener('change', function (event) { Sound.alert = event.target.value; });
+    $('#btnTest').addEventListener('click', function () { Sound.resume(); Sound.playAlert(); });
+
+    var volume = $('#rngVolume');
+    var volLabel = $('#volLabel');
+    var applyVolume = function () {
+      var pct = clamp(parseInt(volume.value, 10) || 0, 0, 100);
+      volume.style.setProperty('--pct', pct + '%');
+      volLabel.textContent = String(pct);
+      Sound.setVolume(pct / 100);
+    };
+    volume.addEventListener('input', applyVolume);
+    applyVolume();
+
+    var mute = $('#btnMute');
+    mute.addEventListener('click', function () {
+      var next = mute.getAttribute('aria-pressed') !== 'true';
+      mute.setAttribute('aria-pressed', next ? 'true' : 'false');
+      Sound.setMuted(next);
+      document.body.classList.toggle('muted', next);
+    });
+
+    $('#btnHistory').addEventListener('click', function () {
+      renderHistory();
+      $('#historyPanel').classList.toggle('hidden');
+    });
+    $('#btnHistoryClose').addEventListener('click', function () { $('#historyPanel').classList.add('hidden'); });
+    $('#btnExport').addEventListener('click', function () {
+      if (!Premium.isActive()) { openPremium(); return; }
+      History.export();
+    });
+
+    window.addEventListener('hashchange', function () {
+      if (state.running) { return; }
+      applyHash();
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (isTyping(event.target) || event.metaKey || event.ctrlKey || event.altKey) { return; }
+      if (event.key === ' ' || event.key === 'k' || event.key === 'K') {
+        event.preventDefault();
+        toggle();
+      } else if (event.key === 'r' || event.key === 'R') {
+        event.preventDefault();
+        reset();
+      } else if (event.key === 'd' || event.key === 'D') {
+        event.preventDefault();
+        toggleZen();
+      } else if (event.key === 'Escape') {
+        if (document.body.classList.contains('zen')) { toggleZen(false); }
+      } else if (event.key >= '1' && event.key <= '8') {
+        var preset = PRESETS[parseInt(event.key, 10) - 1];
+        if (preset && !state.running) { setDuration(preset.seconds); }
+      }
+    });
+
+    var arm = function () {
+      if (audioArmed) { return; }
+      audioArmed = true;
+      Sound.resume();
+      window.removeEventListener('pointerdown', arm);
+      window.removeEventListener('keydown', arm);
+    };
+    window.addEventListener('pointerdown', arm);
+    window.addEventListener('keydown', arm);
+
+    window.addEventListener('resize', function () { lastOffset = -1; render(); });
+
+    initConsent();
+    setBodyState();
+    render();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

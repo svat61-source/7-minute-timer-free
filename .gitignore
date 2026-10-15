@@ -1,0 +1,11 @@
+node_modules/
+build/
+site.zip
+build-input.css
+build-out.css
+.home/
+.plugin-cache/
+.DS_Store
+*.log
+.env
+.env.*
